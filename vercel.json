@@ -7,9 +7,6 @@
       "source": "/(.*)",
       "destination": "/api/server"
     }
-  ],
-  "functions": {
-    "api/server.js": {}
-  }
+  ]
 }
 
