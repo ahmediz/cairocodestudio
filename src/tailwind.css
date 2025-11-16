@@ -1,0 +1,7 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-dark-bg: #1b1b1f;
+  --font-antonio: 'Antonio', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+}
