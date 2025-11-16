@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'c-header',
-  imports: [RouterLink],
+  imports: [RouterLink, ButtonModule, RouterLinkActive],
   templateUrl: './header.html',
   styleUrl: './header.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

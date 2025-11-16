@@ -1,20 +1,20 @@
-<header>
+<header class="py-4">
   <div class="container flex items-center justify-between">
     <a routerLink="/">
-      <img src="/logo-dark.svg" alt="Cairo Code Studio" class="h-14" />
+      <img src="/logo-dark.svg" alt="Cairo Code Studio Logo" class="h-14" />
     </a>
 
     <nav>
-      <ul>
+      <ul class="flex items-center gap-4">
         @for (item of mainNav(); track $index) {
           <li>
-            <a [routerLink]="item.routerLink" class="hover:text-primary">{{ item.label }}</a>
+            <a [routerLink]="item.routerLink" [routerLinkActive]="['text-primary-500']" [routerLinkActiveOptions]="{ exact: true }" class="hover:text-primary-500">{{ item.label }}</a>
           </li>
         }
       </ul>
     </nav>
     <div class="flex items-center gap-4">
-
+      <p-button label="Let's Talk" />
     </div>
   </div>
 </header>
