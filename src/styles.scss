@@ -103,3 +103,22 @@ h6 {
     }
   }
 }
+
+
+.p-dialog {
+  @apply w-full  max-w-[600px];
+}
+
+.p-inputtext {
+  @apply border-gray-300 w-full hover:border-gray-400 focus:border-primary-500;
+}
+
+.p-textarea {
+  @apply resize-none border-gray-300 w-full hover:border-gray-400 focus:border-primary-500;
+}
+
+.p-floatlabel {
+  label {
+    @apply text-sm text-gray-500;
+  }
+}

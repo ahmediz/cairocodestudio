@@ -22,7 +22,13 @@
         class="overflow-hidden rounded-3xl max-w-2xl"
         animate.enter="animate__animated animate__fadeInRight"
       >
-        <img src="images/hero-img.jpg" alt="Cairo Code Studio Hero Image" />
+        <img
+          ngSrc="images/hero-img.jpg"
+          width="672"
+          height="448"
+          alt="Cairo Code Studio Hero Image"
+          priority
+        />
       </figure>
     </div>
     <div class="flex items-center gap-4 mt-32">
@@ -34,17 +40,68 @@
         <c-scroll-container>
           <div class="flex gap-12 items-center">
             <img
-              src="images/clients/king-faisal-hospital.png"
+              ngSrc="images/clients/king-faisal-hospital.png"
               alt="king-faisal-hospital Logo"
+              width="200"
               class="h-14"
+              height="56"
             />
-            <img src="images/clients/national-elearning-center.webp" alt="national elearning center Logo" class="h-14" />
-            <img src="images/clients/ceel.svg" alt="ceel Logo" class="h-14" />
-            <img src="images/clients/thkee.svg" alt="thkee Logo" class="h-14" />
-            <img src="images/clients/secugile.png" alt="secugile Logo" class="h-14" />
-            <img src="images/clients/amplifai.png" alt="amplifai Logo" class="h-14" />
-            <img src="images/clients/evento.svg" alt="evento Logo" class="h-14" />
-            <img src="images/clients/jest.svg" alt="jest Logo" class="h-14" />
+            <img
+              ngSrc="images/clients/national-elearning-center.webp"
+              alt="national elearning center Logo"
+              class="h-14"
+              width="200"
+              height="56"
+            />
+            <img
+              ngSrc="images/clients/ceel.svg"
+              alt="ceel Logo"
+              class="h-14"
+              width="200"
+              height="56"
+            />
+            <img
+              ngSrc="images/clients/facegraph.svg"
+              alt="facegraph Logo"
+              width="200"
+              class="h-14"
+              height="56"
+            />
+            <img
+              ngSrc="images/clients/thkee.svg"
+              alt="thkee Logo"
+              width="200"
+              class="h-14"
+              height="56"
+            />
+            <img
+              ngSrc="images/clients/secugile.png"
+              alt="secugile Logo"
+              width="200"
+              class="h-14"
+              height="56"
+            />
+            <img
+              ngSrc="images/clients/amplifai.png"
+              alt="amplifai Logo"
+              width="200"
+              class="h-14"
+              height="56"
+            />
+            <img
+              ngSrc="images/clients/evento.svg"
+              alt="evento Logo"
+              width="200"
+              class="h-14"
+              height="56"
+            />
+            <img
+              ngSrc="images/clients/jest.svg"
+              alt="jest Logo"
+              width="200"
+              class="h-14"
+              height="56"
+            />
           </div>
         </c-scroll-container>
       </div>
@@ -53,7 +110,7 @@
 </div>
 
 <c-home-section title="Our Services">
-  <div class="grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-6 w-full">
+  <div class="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-6 w-full">
     @for (service of services(); track service.title) {
     <c-service-item [service]="service" />
     }
@@ -61,7 +118,7 @@
 </c-home-section>
 <c-home-section title="Our Portfolio" class="bg-gray-100" containerClass="max-w-full!">
   <div class="container">
-    <div class="flex gap-8">
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6 w-full">
       @for (portfolio of portfolio(); track portfolio.id) {
       <c-portfolio-item [portfolio]="portfolio" />
       }

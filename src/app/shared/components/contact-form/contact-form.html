@@ -1,0 +1,26 @@
+<form [formGroup]="contactForm" class="grid grid-cols-2 gap-4">
+  <p-floatlabel variant="in">
+    <label for="name">Name</label>
+    <input type="text" pInputText formControlName="name" />
+  </p-floatlabel>
+  <p-floatlabel variant="in">
+    <label for="subject">Subject</label>
+    <input type="text" pInputText formControlName="subject" />
+  </p-floatlabel>
+  <p-floatlabel variant="in">
+    <label for="email">Email</label>
+    <input type="text" pInputText formControlName="email" />
+  </p-floatlabel>
+  <p-floatlabel variant="in">
+    <label for="phone">Phone</label>
+    <input type="text" pInputText formControlName="phone" />
+  </p-floatlabel>
+  <p-floatlabel variant="in">
+    <label for="message">Message</label>
+    <textarea rows="3" pTextarea formControlName="message"></textarea>
+  </p-floatlabel>
+</form>
+<div class="flex gap-2 mt-8 justify-end">
+  <p-button label="Cancel" severity="secondary" text="true" />
+  <p-button label="Send" />
+</div>

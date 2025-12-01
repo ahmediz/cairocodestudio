@@ -1,20 +1,22 @@
 <div
   role="button"
   [routerLink]="portfolio().routerLink"
-  class="min-w-[400px] block bg-white rounded-2xl p-4"
+  class="min-w-[400px] h-full flex flex-col bg-white rounded-2xl p-4"
 >
-  <img [src]="portfolio().image" alt="Ceel" class="w-full h-64 object-cover rounded-2xl" />
+  <a [href]="portfolio().link" target="_blank">
+    <img [ngSrc]="portfolio().image" width="368" height="207" [alt]="portfolio().title" class="w-full aspect-video object-cover rounded-2xl" />
+  </a>
   <h3 class="mt-4">{{ portfolio().title }}</h3>
-  <p class="mt-2 mb-4">{{ portfolio().description }}</p>
-  <div class="flex items-center gap-2">
-    <p-button
+  <p class="mt-2 mb-4 text-sm">{{ portfolio().description }}</p>
+  <div class="flex items-center gap-2 mt-auto">
+    <!-- <p-button
       label="View Project"
       text="true"
       class="flex-1"
       icon="pi pi-eye"
       styleClass="w-full "
       [routerLink]="portfolio().routerLink"
-    />
+    /> -->
     @if (portfolio().link) {
     <a
       [href]="portfolio().link"
@@ -24,7 +26,7 @@
       class="flex-1"
       icon="pi pi-external-link"
       [text]="true"
-      >Live Demo</a
+      >Check Live</a
     >
     }
   </div>

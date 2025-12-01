@@ -6,6 +6,7 @@ import { HomeSection } from '../../shared/components/home-section/home-section';
 import { ServiceItem } from '../../shared/components/service-item/service-item';
 import { PortfolioItem } from '../../shared/components/portfolio-item/portfolio-item';
 import { TestmonialItem } from '../../shared/components/testimonial-item/testimonial-item';
+import { NgOptimizedImage } from "@angular/common";
 
 @Component({
   selector: 'c-home',
@@ -18,7 +19,8 @@ import { TestmonialItem } from '../../shared/components/testimonial-item/testimo
     ServiceItem,
     PortfolioItem,
     TestmonialItem,
-  ],
+    NgOptimizedImage
+],
   templateUrl: './home.html',
   styleUrl: './home.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -60,26 +62,26 @@ export class Home {
     {
       id: 'ceel',
       title: 'Ceel',
-      description: 'Modern, user-centered interfaces',
-      image: 'images/projects/ceel.png',
+      description: 'Ceel is the all-in-one AI trust platform that automates compliance, strengthens security, and helps you pass audits in days, so you can focus on growth.',
+      image: 'images/projects/ceel/thumb.png',
       link: 'https://app.ceel.io/',
       routerLink: '/projects/ceel',
     },
     {
-      id: 'ceel',
-      title: 'Ceel',
-      description: 'Modern, user-centered interfaces',
-      image: 'images/projects/ceel.png',
-      link: 'https://app.ceel.io/',
-      routerLink: '/projects/ceel',
+      id: 'smileme',
+      title: 'Smileme',
+      description: ' Facility & attendance management smart cloud software.',
+      image: 'images/projects/smileme/thumb.png',
+      link: 'https://smileme.in/',
+      routerLink: '/projects/smileme',
     },
     {
-      id: 'ceel',
-      title: 'Ceel',
-      description: 'Modern, user-centered interfaces',
-      image: 'images/projects/ceel.png',
-      link: 'https://app.ceel.io/',
-      routerLink: '/projects/ceel',
+      id: 'amplifai',
+      title: 'Amplifai',
+      description: 'AI-powered thermal imaging enables fast, accessible and objective diabetic foot screening, so any care team can act early, with confidence.',
+      image: 'images/projects/amplifai/thumb.png',
+      link: 'https://portal.amplifaihealth.com',
+      routerLink: '/projects/amplifai',
     },
   ]);
   testimonials = signal([
@@ -101,6 +103,16 @@ export class Home {
       company: 'Metacore',
       description:
         'Ahmed done a great job on this Dashboard Design and Development project and I enjoyed working with him. He met all deadlines, and his design and development skills were top-notch. Also I asked for an additional milestones and he was very forthcoming that the additional work. Highly Recommended, Im sure I will work with him on next project.',
+    },
+
+    {
+      id: 'facegraph',
+      name: 'Ahmed Farag',
+      logo: 'facegraph.svg',
+      logoAlt: 'facegraph Logo',
+      company: 'Facegraph',
+      description:
+        'Ahmed is super talented! Has a rare and hard to find good mix of experiences between design and UX programming. On top of all this he is very accountable. Always delivers promptly and often early. I have an open contract with Ahmed to design and implement my overall company artwork, websites, marketing materials and apps! You will not find a better person.',
     },
 
     {
