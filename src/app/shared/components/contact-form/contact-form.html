@@ -1,26 +1,26 @@
-<form [formGroup]="contactForm" class="grid grid-cols-2 gap-4">
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="grid grid-cols-2 gap-4">
   <p-floatlabel variant="in">
+    <input type="text" pInputText [invalid]="contactForm.get('name')?.invalid && contactForm.get('name')?.touched" formControlName="name" />
     <label for="name">Name</label>
-    <input type="text" pInputText formControlName="name" />
   </p-floatlabel>
   <p-floatlabel variant="in">
+    <input type="text" pInputText [invalid]="contactForm.get('subject')?.invalid && contactForm.get('subject')?.touched" formControlName="subject" />
     <label for="subject">Subject</label>
-    <input type="text" pInputText formControlName="subject" />
   </p-floatlabel>
   <p-floatlabel variant="in">
+    <input type="text" pInputText [invalid]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched" formControlName="email" />
     <label for="email">Email</label>
-    <input type="text" pInputText formControlName="email" />
   </p-floatlabel>
   <p-floatlabel variant="in">
+    <input type="text" pInputText [invalid]="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched" formControlName="phone" />
     <label for="phone">Phone</label>
-    <input type="text" pInputText formControlName="phone" />
   </p-floatlabel>
   <p-floatlabel variant="in">
+    <textarea rows="3" pTextarea [invalid]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched" formControlName="message"></textarea>
     <label for="message">Message</label>
-    <textarea rows="3" pTextarea formControlName="message"></textarea>
   </p-floatlabel>
 </form>
 <div class="flex gap-2 mt-8 justify-end">
-  <p-button label="Cancel" severity="secondary" text="true" />
-  <p-button label="Send" />
+  <p-button label="Cancel" severity="secondary" text="true" (click)="dialogRef.close()" [disabled]="isSubmitting()" />
+  <p-button label="Send" (click)="onSubmit()" [loading]="isSubmitting()" [disabled]="contactForm.invalid" />
 </div>

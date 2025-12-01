@@ -110,10 +110,14 @@ h6 {
 }
 
 .p-inputtext {
-  @apply border-gray-300 w-full hover:border-gray-400 focus:border-primary-500;
+  @apply w-full;
+
+  &:not(.ng-invalid.ng-dirty) {
+    @apply border-gray-300 hover:border-gray-400 focus:border-primary-500;
+  }
 }
 
-.p-textarea {
+.p-textarea:not(.ng-invalid.ng-dirty) {
   @apply resize-none border-gray-300 w-full hover:border-gray-400 focus:border-primary-500;
 }
 
