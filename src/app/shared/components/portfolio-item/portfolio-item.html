@@ -1,0 +1,31 @@
+<div
+  role="button"
+  [routerLink]="portfolio().routerLink"
+  class="min-w-[400px] block bg-white rounded-2xl p-4"
+>
+  <img [src]="portfolio().image" alt="Ceel" class="w-full h-64 object-cover rounded-2xl" />
+  <h3 class="mt-4">{{ portfolio().title }}</h3>
+  <p class="mt-2 mb-4">{{ portfolio().description }}</p>
+  <div class="flex items-center gap-2">
+    <p-button
+      label="View Project"
+      text="true"
+      class="flex-1"
+      icon="pi pi-eye"
+      styleClass="w-full "
+      [routerLink]="portfolio().routerLink"
+    />
+    @if (portfolio().link) {
+    <a
+      [href]="portfolio().link"
+      target="_blank"
+      pButton
+      severity="secondary"
+      class="flex-1"
+      icon="pi pi-external-link"
+      [text]="true"
+      >Live Demo</a
+    >
+    }
+  </div>
+</div>

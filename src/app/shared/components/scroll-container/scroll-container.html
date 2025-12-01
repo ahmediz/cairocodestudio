@@ -1,0 +1,21 @@
+<div class="relative flex items-center gap-4">
+  <p-button
+    (click)="scrollLeft()"
+    icon="pi pi-chevron-left"
+    [rounded]="true"
+    size="small"
+    [class.invisible]="!showLeftButton()"
+  >
+  </p-button>
+  <div class="overflow-auto scroll-container flex-1 min-w-0" #scrollContainer>
+    <ng-content></ng-content>
+  </div>
+  <p-button
+    (click)="scrollRight()"
+    icon="pi pi-chevron-right"
+    [rounded]="true"
+    size="small"
+    [class.invisible]="!showRightButton()"
+  >
+  </p-button>
+</div>

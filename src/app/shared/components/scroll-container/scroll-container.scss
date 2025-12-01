@@ -1,0 +1,7 @@
+.scroll-container {
+  &::-webkit-scrollbar {
+    @apply hidden;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

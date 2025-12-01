@@ -6,8 +6,21 @@
   --animate-duration: 600ms;
 }
 
+html,
+body {
+  @apply h-full;
+}
+
 body {
   @apply text-base text-surface-500 antialiased font-inter;
+}
+
+.global-wrapper {
+  @apply min-h-full flex flex-col;
+}
+
+main {
+  @apply flex-1;
 }
 
 h1,
@@ -16,23 +29,39 @@ h3,
 h4,
 h5,
 h6 {
-  @apply font-antonio font-bold;
+  @apply font-antonio font-extrabold;
 }
 
 h1 {
   @apply text-4xl;
+
+  &.title-with-dash {
+    @apply pb-(--text-2xl);
+  }
 }
 h2 {
   @apply text-3xl;
+  &.title-with-dash {
+    @apply pb-(--text-xl);
+  }
 }
 h3 {
   @apply text-2xl;
+  &.title-with-dash {
+    @apply pb-(--text-xl);
+  }
 }
 h4 {
   @apply text-xl;
+  &.title-with-dash {
+    @apply pb-(--text-lg);
+  }
 }
 h5 {
   @apply text-lg;
+  &.title-with-dash {
+    @apply pb-(--text-base);
+  }
 }
 h6 {
   @apply text-base;
@@ -43,20 +72,34 @@ h6 {
   @apply transition-colors duration-300;
 }
 
-.container {
-  @apply max-w-7xl mx-auto px-4;
-}
+
 
 // Buttons
 .p-button {
-  @apply text-base rounded-xl px-4 min-h-10 overflow-visible;
+  @apply text-base;
 
-  &-text {
-    @apply min-h-auto p-0 rounded-none hover:bg-transparent hover:after:scale-x-100 hover:after:origin-left;
+  &:not(.p-button-icon-only):not(.p-button-text):not(.p-button-link) {
+    @apply px-4;
+  }
+
+  &:not(.p-button-rounded) {
+    @apply rounded-xl;
+  }
+
+  &-secondary {
+    @apply hover:bg-gray-100;
+  }
+
+  &-contrast {
+    @apply bg-dark-bg;
+  }
+
+  &-custom-text {
+    @apply p-0 rounded-none bg-transparent hover:bg-transparent hover:after:scale-x-100 hover:after:origin-left overflow-visible;
 
     &::after {
       content: '';
-      @apply absolute -bottom-1 left-0 w-full h-0.5 bg-primary-500 rounded-full scale-x-0 origin-right transition-transform duration-300;
+      @apply absolute -bottom-1 left-0 w-full h-0.5 bg-current rounded-full scale-x-0 origin-right transition-transform duration-300;
     }
   }
 }

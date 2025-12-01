@@ -1,18 +1,111 @@
-<div class="py-16">
-  <div class="container flex items-center justify-between">
-    <div class="flex-1">
-      <h1 class="flex flex-col gap-2 text-6xl!">
-        <span class="text-3xl font-normal">Welcome to</span
-        ><span class="text-primary-500"> Cairo Code Studio</span>
-      </h1>
-      <p class="text-surface-500 text-lg mt-6">
-        We are a team of developers who are passionate about creating beautiful and functional
-        websites.
-      </p>
-      <p-button label="Learn More" text="true" styleClass="mt-6" icon="pi pi-chevron-circle-right" iconPos="right" />
+<div class="flex flex-col py-16 overflow-hidden">
+  <div class="container flex-1 flex flex-col">
+    <div class="flex items-center justify-between">
+      <div class="flex-1">
+        <h1 class="flex flex-col gap-2 text-6xl! title-with-dash">
+          <span class="text-primary-500 leading-[1.2]">Built on Experience. Driven by Trust</span>
+        </h1>
+        <p class="text-surface-500 text-lg mt-6">
+          A software team turned agency helping businesses grow with passion, commitment, and expert
+          execution.
+        </p>
+        <p-button
+          label="Learn More"
+          text="true"
+          styleClass="mt-6 p-button-custom-text"
+          icon="pi pi-chevron-circle-right"
+          iconPos="right"
+          routerLink="/about"
+        />
+      </div>
+      <figure
+        class="overflow-hidden rounded-3xl max-w-2xl"
+        animate.enter="animate__animated animate__fadeInRight"
+      >
+        <img src="images/hero-img.jpg" alt="Cairo Code Studio Hero Image" />
+      </figure>
     </div>
-    <figure class="overflow-hidden rounded-3xl max-w-2xl" animate.enter="animate__animated animate__fadeInRight">
-      <img src="images/hero-img.jpg" alt="Cairo Code Studio Hero Image" />
-    </figure>
+    <div class="flex items-center gap-4 mt-32">
+      <h2 class="max-w-72">
+        Clients <i class="pi pi-heart-fill text-2xl mx-1 text-primary-500 align-middle"></i> we're
+        proud we've worked with
+      </h2>
+      <div class="border-s border-surface-50 ps-8">
+        <c-scroll-container>
+          <div class="flex gap-12 items-center">
+            <img
+              src="images/clients/king-faisal-hospital.png"
+              alt="king-faisal-hospital Logo"
+              class="h-14"
+            />
+            <img src="images/clients/national-elearning-center.webp" alt="national elearning center Logo" class="h-14" />
+            <img src="images/clients/ceel.svg" alt="ceel Logo" class="h-14" />
+            <img src="images/clients/thkee.svg" alt="thkee Logo" class="h-14" />
+            <img src="images/clients/secugile.png" alt="secugile Logo" class="h-14" />
+            <img src="images/clients/amplifai.png" alt="amplifai Logo" class="h-14" />
+            <img src="images/clients/evento.svg" alt="evento Logo" class="h-14" />
+            <img src="images/clients/jest.svg" alt="jest Logo" class="h-14" />
+          </div>
+        </c-scroll-container>
+      </div>
+    </div>
   </div>
 </div>
+
+<c-home-section title="Our Services">
+  <div class="grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-6 w-full">
+    @for (service of services(); track service.title) {
+    <c-service-item [service]="service" />
+    }
+  </div>
+</c-home-section>
+<c-home-section title="Our Portfolio" class="bg-gray-100" containerClass="max-w-full!">
+  <div class="container">
+    <div class="flex gap-8">
+      @for (portfolio of portfolio(); track portfolio.id) {
+      <c-portfolio-item [portfolio]="portfolio" />
+      }
+    </div>
+    <div class="flex justify-center mt-6">
+      <p-button
+        label="Check Our Portfolio"
+        text="true"
+        styleClass="p-button-custom-text"
+        icon="pi pi-chevron-circle-right"
+        severity="contrast"
+        iconPos="right"
+        routerLink="/portfolio"
+      />
+    </div>
+    <!-- <c-scroll-container class="min-w-0 block w-full" [scrollValue]="400">
+      <div class="flex gap-8">
+        @for (portfolio of portfolio(); track portfolio.id) {
+          <c-portfolio-item [portfolio]="portfolio" />
+        }
+      </div>
+    </c-scroll-container> -->
+  </div>
+</c-home-section>
+
+<c-home-section
+  title="Unlock the Full Potential of Your Website"
+  subtitle="Claim your free expert audit and discover where improvements can boost results."
+  [isCenter]="true"
+  class="bg-primary-500 text-white"
+>
+  <div class="container">
+    <div class="flex justify-center">
+      <p-button label="Request Free Audit" severity="contrast" icon="pi pi-search" />
+    </div>
+  </div>
+</c-home-section>
+
+<c-home-section title="Out Trusted Clients">
+  <div class="container">
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6 w-full">
+      @for (testimonial of testimonials(); track testimonial.id) {
+      <c-testimonial-item [testimonial]="testimonial" />
+      }
+    </div>
+  </div>
+</c-home-section>

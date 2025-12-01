@@ -1,0 +1,9 @@
+@import '../../../../tailwind.css';
+
+:host {
+  display: block;
+}
+
+a {
+  @apply hover:text-primary-500 transition-colors duration-300;
+}
