@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { RouterLink } from '@angular/router';
 import { NgOptimizedImage } from "@angular/common";
 
 @Component({
   selector: 'c-portfolio-item',
-  imports: [ButtonModule, RouterLink, NgOptimizedImage],
+  imports: [ButtonModule, NgOptimizedImage],
   templateUrl: './portfolio-item.html',
   styleUrl: './portfolio-item.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,0 +1,10 @@
+<div class="py-12 text-center">
+  <div class="container">
+    <h1 class="text-primary-500 mb-8">Our Portfolio</h1>
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6 w-full">
+      @for (portfolio of portfolio(); track portfolio.id) {
+      <c-portfolio-item [portfolio]="portfolio" />
+      }
+    </div>
+  </div>
+</div>

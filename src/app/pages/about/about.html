@@ -1,1 +1,109 @@
-<p>about works!</p>
+<div class="py-12 text-center">
+  <div class="container">
+    <div class="flex flex-col">
+      <h1 class="text-primary-500 mb-8">Our Story</h1>
+      <div class="space-y-2">
+        <p class="max-w-3xl mx-auto">
+          Cairo Codes Studio began after years of real software experience, working with clients
+          across Egypt, Saudi Arabia, the Emirates, Canada, and the U.S. We noticed the same pain
+          point everywhere: clients struggled to find someone they could trust — someone committed,
+          experienced, and passionate about their success.
+        </p>
+        <p class="max-w-3xl mx-auto">
+          What started as freelancing turned into something bigger. Our values, work ethic, and
+          dedication led us to evolve into a full agency helping more clients grow their business and
+          follow their dreams with confidence.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="py-12 bg-dark-bg text-white">
+  <div class="container">
+    <div class="flex items-center">
+      <h2>Our Values</h2>
+      <div class="flex-1 flex gap-4 border-s border-white/20 ps-8 ms-8">
+        <div class="flex-1 flex flex-col items-center gap-4">
+          <i class="pi pi-face-smile text-3xl"></i>
+          <h3 class="text-white/70">Friendly</h3>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-4">
+          <i class="pi pi-briefcase text-3xl"></i>
+          <h3 class="text-white/70">Professional</h3>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-4">
+          <i class="pi pi-lightbulb text-3xl"></i>
+          <h3 class="text-white/70">Innovative</h3>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-4">
+          <i class="pi pi-graduation-cap text-3xl"></i>
+          <h3 class="text-white/70">Expertise</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="py-12 flex items-center gap-16">
+  <h2 class="text-[150px]! -ms-8 min-w-[550px] first-letter:text-primary-500">Mission</h2>
+  <div class="me-[calc((100vw-80rem)/2)]">
+    <p>
+      <b>Our mission</b> is to build user-friendly websites and interfaces that truly support our
+      clients’ growth. We focus on clear design, reliable front-end development, and smooth user
+      experiences. Through collaboration and attention to detail, we create digital tools that make
+      running a business easier. We’re committed to helping clients succeed online with solutions
+      that work beautifully and efficiently.
+    </p>
+  </div>
+</div>
+<div class="py-12 flex items-center gap-16">
+  <h2 class="text-[150px]! -ms-8 min-w-[550px] first-letter:text-primary-500">Vision</h2>
+  <div class="me-[calc((100vw-80rem)/2)]">
+    <p>
+      <b>Our vision</b> is to create clean, modern digital experiences that help people thrive in
+      their businesses. We believe the web should feel easy, intuitive, and enjoyable for everyone.
+      By combining creativity with thoughtful design, we aim to empower clients to grow with
+      confidence. Our goal is to build digital solutions that support long-term success and
+      meaningful impact.
+    </p>
+  </div>
+</div>
+<div class="py-12 flex items-center gap-16">
+  <h2 class="text-[150px]! -ms-8 first-letter:text-primary-500">Approach</h2>
+  <div class="me-[calc((100vw-80rem)/2)]">
+    <p>
+      <b>Our approach</b> is simple, we treat every project with the same care, passion, and
+      precision we bring to our own work. As software professionals, we focus on clarity,
+      communication, and delivering results you can rely on.
+    </p>
+    <ul class="mt-4 flex flex-col gap-2">
+      <li class="flex items-center gap-2">
+        <i class="pi pi-check-circle text-primary-500"></i>
+        <span class="font-medium">We listen first every business is unique.</span>
+      </li>
+      <li class="flex items-center gap-2">
+        <i class="pi pi-check-circle text-primary-500"></i>
+        <span class="font-medium">We communicate clearly no tech overwhelm.</span>
+      </li>
+      <li class="flex items-center gap-2">
+        <i class="pi pi-check-circle text-primary-500"></i>
+        <span class="font-medium">We build with quality long-lasting, scalable work.</span>
+      </li>
+      <li class="flex items-center gap-2">
+        <i class="pi pi-check-circle text-primary-500"></i>
+        <span class="font-medium">We support you even after launch.</span>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="py-12 text-center">
+  <div class="container">
+    <h2 class="mb-8">Meet The Team</h2>
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
+      @for (member of team(); track team.name) {
+      <c-team-item [member]="member" />
+      }
+    </div>
+  </div>
+</div>

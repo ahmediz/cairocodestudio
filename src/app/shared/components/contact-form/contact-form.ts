@@ -23,11 +23,11 @@ export class ContactForm {
   messageService = inject(MessageService);
 
   contactForm: FormGroup = new FormGroup({
-    name: new FormControl('asd', [Validators.required]),
-    subject: new FormControl('asd', [Validators.required]),
-    email: new FormControl('asd@asd.com', [Validators.required, Validators.email]),
-    phone: new FormControl('34534534', [Validators.required, Validators.pattern(/^[0-9]+$/)]),
-    message: new FormControl('asd', [Validators.required]),
+    name: new FormControl('', [Validators.required]),
+    subject: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    phone: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+$/)]),
+    message: new FormControl('', [Validators.required]),
   });
 
   isSubmitting = signal(false);

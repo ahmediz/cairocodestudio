@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ScrollContainer } from '../../shared/components/scroll-container/scroll-container';
 import { RouterLink } from '@angular/router';
@@ -7,6 +7,7 @@ import { ServiceItem } from '../../shared/components/service-item/service-item';
 import { PortfolioItem } from '../../shared/components/portfolio-item/portfolio-item';
 import { TestmonialItem } from '../../shared/components/testimonial-item/testimonial-item';
 import { NgOptimizedImage } from "@angular/common";
+import { PortfolioService } from '../../shared/services/portfolio';
 
 @Component({
   selector: 'c-home',
@@ -26,6 +27,8 @@ import { NgOptimizedImage } from "@angular/common";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Home {
+  portfolioService = inject(PortfolioService);
+  portfolio = computed(() => this.portfolioService.portfolio().filter(project => project.isFeatured));
   services = signal([
     {
       title: 'UI/UX Design',
@@ -58,32 +61,7 @@ export class Home {
       icon: 'pi pi-headphones',
     },
   ]);
-  portfolio = signal([
-    {
-      id: 'ceel',
-      title: 'Ceel',
-      description: 'Ceel is the all-in-one AI trust platform that automates compliance, strengthens security, and helps you pass audits in days, so you can focus on growth.',
-      image: 'images/projects/ceel/thumb.png',
-      link: 'https://app.ceel.io/',
-      routerLink: '/projects/ceel',
-    },
-    {
-      id: 'smileme',
-      title: 'Smileme',
-      description: ' Facility & attendance management smart cloud software.',
-      image: 'images/projects/smileme/thumb.png',
-      link: 'https://smileme.in/',
-      routerLink: '/projects/smileme',
-    },
-    {
-      id: 'amplifai',
-      title: 'Amplifai',
-      description: 'AI-powered thermal imaging enables fast, accessible and objective diabetic foot screening, so any care team can act early, with confidence.',
-      image: 'images/projects/amplifai/thumb.png',
-      link: 'https://portal.amplifaihealth.com',
-      routerLink: '/projects/amplifai',
-    },
-  ]);
+
   testimonials = signal([
     {
       id: 'secugile',

@@ -29,7 +29,7 @@ h3,
 h4,
 h5,
 h6 {
-  @apply font-antonio font-extrabold;
+  @apply font-antonio font-extrabold leading-none;
 }
 
 h1 {
@@ -126,3 +126,4 @@ h6 {
     @apply text-sm text-gray-500;
   }
 }
+
