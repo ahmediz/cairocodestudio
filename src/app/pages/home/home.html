@@ -32,7 +32,7 @@
       </figure>
     </div>
     <div class="flex items-center gap-4 mt-32">
-      <h2 class="max-w-72">
+      <h2 class="min-w-72 max-w-72">
         Clients <i class="pi pi-heart-fill text-2xl mx-1 text-primary-500 align-middle"></i> we're
         proud we've worked with
       </h2>
@@ -130,6 +130,17 @@
     @for (service of services(); track service.title) {
     <c-service-item [service]="service" />
     }
+  </div>
+  <div class="flex justify-center">
+    <p-button
+      label="Check Our Services"
+      text="true"
+      styleClass="p-button-custom-text"
+      icon="pi pi-chevron-circle-right"
+      severity="contrast"
+      iconPos="right"
+      routerLink="/services"
+    />
   </div>
 </c-home-section>
 <c-home-section title="Our Portfolio" class="bg-gray-100" containerClass="max-w-full!">

@@ -8,6 +8,7 @@ import { PortfolioItem } from '../../shared/components/portfolio-item/portfolio-
 import { TestmonialItem } from '../../shared/components/testimonial-item/testimonial-item';
 import { NgOptimizedImage } from "@angular/common";
 import { PortfolioService } from '../../shared/services/portfolio';
+import { ServicesService } from '../../shared/services/services';
 
 @Component({
   selector: 'c-home',
@@ -28,39 +29,10 @@ import { PortfolioService } from '../../shared/services/portfolio';
 })
 export class Home {
   portfolioService = inject(PortfolioService);
+  servicesService = inject(ServicesService);
   portfolio = computed(() => this.portfolioService.portfolio().filter(project => project.isFeatured));
-  services = signal([
-    {
-      title: 'UI/UX Design',
-      description: 'Modern, user-centered interfaces',
-      icon: 'pi pi-palette',
-    },
-    {
-      title: 'Web Development',
-      description: 'Fast, secure, scalable websites',
-      icon: 'pi pi-globe',
-    },
-    {
-      title: 'Mobile App Development',
-      description: 'iOS & Android apps built to last',
-      icon: 'pi pi-mobile',
-    },
-    {
-      title: 'E-Commerce Solutions',
-      description: 'Online stores with smooth UX',
-      icon: 'pi pi-shopping-cart',
-    },
-    {
-      title: 'Brand Identity',
-      description: 'Logo, colors, full visual system',
-      icon: 'pi pi-pencil',
-    },
-    {
-      title: 'Care & Support Plans',
-      description: 'Maintenance, updates, monitoring',
-      icon: 'pi pi-headphones',
-    },
-  ]);
+  services = computed(() => this.servicesService.services());
+
 
   testimonials = signal([
     {
