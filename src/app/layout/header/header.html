@@ -1,21 +1,56 @@
 <header class="py-4">
   <div class="container flex items-center justify-between">
     <a routerLink="/">
-      <img src="/logo-dark.svg" alt="Cairo Code Studio Logo" class="h-14" />
+      <img src="/logo-dark.svg" alt="Cairo Code Studio Logo" class="h-14 min-w-[157px]" />
     </a>
 
-    <nav>
-      <ul class="flex items-center gap-4">
-        @for (item of mainNav(); track $index) {
+    <p-button
+      icon="pi pi-bars"
+      [rounded]="true"
+      severity="contrast"
+      class="md:hidden"
+      (onClick)="openMenu()"
+    />
+    <div
+      class="flex-1 flex md:items-center max-md:flex-col max-md:p-8 max-md:fixed max-md:top-0 max-md:start-0 max-md:w-full max-md:h-full max-md:bg-dark-bg max-md:z-10 max-md:text-white max-md:-translate-x-full transition-transform transition-ease-in-out duration-300"
+      [class.show]="layoutService.layout().isMenuOpen"
+    >
+      <p-button
+        icon="pi pi-times"
+        [rounded]="true"
+        [text]="true"
+        severity="secondary"
+        class="absolute top-4 end-4"
+        styleClass="max-md:text-white hover:bg-white/10"
+        (onClick)="closeMenu()"
+      />
+      <nav class="flex-1 flex md:justify-center">
+        <ul
+          class="flex md:items-center gap-4 max-md:flex-col max-md:items-start max-md:justify-start max-md:gap-2"
+        >
+          @for (item of mainNav(); track $index) {
           <li>
-            <a [routerLink]="item.routerLink" [routerLinkActive]="['text-primary-500']" [routerLinkActiveOptions]="{ exact: true }" class="hover:text-primary-500">{{ item.label }}</a>
+            <a
+              [routerLink]="item.routerLink"
+              [routerLinkActive]="['text-primary-500']"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="closeMenu()"
+              class="hover:text-primary-500"
+              >{{ item.label }}</a
+            >
           </li>
-        }
-      </ul>
-    </nav>
-    <div class="flex items-center gap-4">
-      <c-social-icons />
-      <p-button label="Let's Talk" (onClick)="showDialog()" />
+          }
+        </ul>
+      </nav>
+      <div class="flex items-center gap-4 max-md:flex-col">
+        <c-social-icons />
+        <p-button
+          label="Let's Talk"
+          (onClick)="showDialog()"
+          class="max-md:w-full"
+          styleClass="max-md:w-full"
+        />
+      </div>
     </div>
   </div>
 </header>

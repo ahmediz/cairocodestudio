@@ -4,6 +4,7 @@ import { ButtonModule } from 'primeng/button';
 import { SocialIcons } from '../../shared/components/social-icons/social-icons';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ContactFormDialog } from '../../shared/components/contact-form-dialog/contact-form-dialog';
+import { LayoutService } from '../../shared/services/layout';
 
 @Component({
   selector: 'c-header',
@@ -13,6 +14,8 @@ import { ContactFormDialog } from '../../shared/components/contact-form-dialog/c
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
+  dialogService = inject(DialogService);
+  layoutService = inject(LayoutService);
   mainNav = signal([
     {
       label: 'Home',
@@ -35,7 +38,6 @@ export class Header {
       routerLink: '/contact',
     },
   ]);
-  dialogService = inject(DialogService);
 
   showDialog() {
     this.dialogService.open(ContactFormDialog, {
@@ -43,5 +45,13 @@ export class Header {
       closable: true,
       modal: true,
     });
+  }
+
+  openMenu() {
+    this.layoutService.updateLayout({ isMenuOpen: true });
+  }
+
+  closeMenu() {
+    this.layoutService.updateLayout({ isMenuOpen: false });
   }
 }
