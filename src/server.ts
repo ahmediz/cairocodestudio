@@ -9,6 +9,7 @@ import express from 'express';
 import { join } from 'node:path';
 import nodemailer from 'nodemailer';
 import { google } from 'googleapis';
+import { generateSitemap } from './server/sitemap';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
@@ -141,6 +142,20 @@ app.post('/api/contact', async (req, res) => {
 
 app.get('/robots.txt', (req, res) => {
   res.sendFile('robots.txt', { root: 'public' });
+});
+
+/**
+ * Sitemap endpoint
+ */
+app.get('/sitemap.xml', (req, res) => {
+  try {
+    const sitemap = generateSitemap();
+    res.setHeader('Content-Type', 'application/xml');
+    res.send(sitemap);
+  } catch (error) {
+    console.error('Error generating sitemap:', error);
+    res.status(500).send('Error generating sitemap');
+  }
 });
 
 /**
