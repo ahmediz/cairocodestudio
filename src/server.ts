@@ -10,6 +10,7 @@ import { join } from 'node:path';
 import nodemailer from 'nodemailer';
 import { google } from 'googleapis';
 import { generateSitemap } from './server/sitemap';
+import { getRobotsHeader } from './server/robots';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
@@ -168,6 +169,18 @@ app.use(
     redirect: false,
   })
 );
+
+/**
+ * X-Robots-Tag header middleware
+ * Sets appropriate robots header based on route before Angular handles the request
+ */
+app.use((req, res, next) => {
+  const robotsHeader = getRobotsHeader(req.path);
+  if (robotsHeader !== null) {
+    res.setHeader('X-Robots-Tag', robotsHeader);
+  }
+  next();
+});
 
 /**
  * Handle all other requests by rendering the Angular application.

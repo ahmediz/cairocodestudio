@@ -19,6 +19,7 @@ export class App implements OnInit {
   metaService = inject(Meta);
   titleService = inject(Title);
   ngOnInit() {
+    this.metaService.updateTag({ name: 'robots', content: 'noindex, nofollow' });
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(async (event) => {

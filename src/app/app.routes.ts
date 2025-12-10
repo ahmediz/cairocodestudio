@@ -13,6 +13,7 @@ export const routes: Routes = [
       title: 'Website Development Experts | Cairo Code Studio',
       description:
         'We build fast, modern websites tailored to your business needs. Boost your online presence with expert development. Start your project with us today.',
+      // robots: 'index, follow' // Optional: Override default robots header (default is 'index, follow')
     },
   },
   {
