@@ -40,7 +40,7 @@ export class App implements OnInit {
     const siteUrl = this.getSiteUrl();
     const title = data['title'] || 'Cairo Code Studio';
     const description = data['description'] || '';
-    const image = data['image'] || '/images/hero-img.jpg'; // Default image
+    const image = data['image'] || '/images/og-default.jpg'; // Default image
     const ogType = data['ogType'] || 'website';
     const siteName = 'Cairo Code Studio';
 
