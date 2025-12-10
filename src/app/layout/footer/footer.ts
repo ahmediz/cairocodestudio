@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from "@angular/router";
-import { SocialIcons } from "../../shared/components/social-icons/social-icons";
-import { CtaSection } from "../../shared/components/cta-section/cta-section";
+import { RouterLink } from '@angular/router';
+import { SocialIcons } from '../../shared/components/social-icons/social-icons';
+import { CtaSection } from '../../shared/components/cta-section/cta-section';
 
 @Component({
   selector: 'c-footer',

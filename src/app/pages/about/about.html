@@ -19,11 +19,11 @@
   </div>
 </div>
 
-<div class="py-12 bg-dark-bg text-white">
+<div class="py-6 md:py-12 bg-dark-bg text-white">
   <div class="container">
-    <div class="flex items-center">
+    <div class="flex items-center md:flex-row flex-col max-md:space-y-8">
       <h2>Our Values</h2>
-      <div class="flex-1 flex gap-4 border-s border-white/20 ps-8 ms-8">
+      <div class="flex-1 flex gap-4 md:border-s border-white/20 md:ps-8 md:ms-8 max-md:flex-wrap max-md:gap-4 max-md:w-full">
         <div class="flex-1 flex flex-col items-center gap-4">
           <i class="pi pi-face-smile text-3xl"></i>
           <h3 class="text-white/70">Friendly</h3>
@@ -45,10 +45,10 @@
   </div>
 </div>
 
-<div class="py-12 flex items-center gap-16">
-  <h2 class="text-[150px]! -ms-8 min-w-[550px] first-letter:text-primary-500">Mission</h2>
-  <div class="me-[calc((100vw-80rem)/2)]">
-    <p>
+<div class="py-6 md:py-12 flex items-center md:gap-16 max-md:flex-col max-md:space-y-4">
+  <h2 class="md:text-[150px]! md:-ms-8 md:min-w-[550px] first-letter:text-primary-500">Mission</h2>
+  <div class="md:me-[calc((100vw-80rem)/2)] px-4 md:px-0 min-w-0">
+    <p class="max-md:text-justify">
       <b>Our mission</b> is to build user-friendly websites and interfaces that truly support our
       clients’ growth. We focus on clear design, reliable front-end development, and smooth user
       experiences. Through collaboration and attention to detail, we create digital tools that make
@@ -57,10 +57,10 @@
     </p>
   </div>
 </div>
-<div class="py-12 flex items-center gap-16">
-  <h2 class="text-[150px]! -ms-8 min-w-[550px] first-letter:text-primary-500">Vision</h2>
-  <div class="me-[calc((100vw-80rem)/2)]">
-    <p>
+<div class="py-6 md:py-12 flex items-center md:gap-16 max-md:flex-col max-md:space-y-4">
+  <h2 class="md:text-[150px]! md:-ms-8 md:min-w-[550px] first-letter:text-primary-500">Vision</h2>
+  <div class="md:me-[calc((100vw-80rem)/2)] px-4 md:px-0 min-w-0">
+    <p class="max-md:text-justify">
       <b>Our vision</b> is to create clean, modern digital experiences that help people thrive in
       their businesses. We believe the web should feel easy, intuitive, and enjoyable for everyone.
       By combining creativity with thoughtful design, we aim to empower clients to grow with
@@ -69,10 +69,10 @@
     </p>
   </div>
 </div>
-<div class="py-12 flex items-center gap-16">
-  <h2 class="text-[150px]! -ms-8 first-letter:text-primary-500">Approach</h2>
-  <div class="me-[calc((100vw-80rem)/2)]">
-    <p>
+<div class="py-6 md:py-12 flex items-center md:gap-16 max-md:flex-col max-md:space-y-4">
+  <h2 class="md:text-[150px]! md:-ms-8 md:min-w-[550px] first-letter:text-primary-500">Approach</h2>
+  <div class="md:me-[calc((100vw-80rem)/2)] px-4 md:px-0 min-w-0">
+    <p class="max-md:text-justify">
       <b>Our approach</b> is simple, we treat every project with the same care, passion, and
       precision we bring to our own work. As software professionals, we focus on clarity,
       communication, and delivering results you can rely on.
@@ -97,10 +97,10 @@
     </ul>
   </div>
 </div>
-<div class="py-12 text-center">
+<div class="py-6 md:py-12 text-center">
   <div class="container">
-    <h2 class="mb-12">Meet The Team</h2>
-    <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
+    <h2 class="mb-6 md:mb-12">Meet The Team</h2>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
       @for (member of team(); track team.name) {
       <c-team-item [member]="member" />
       }
