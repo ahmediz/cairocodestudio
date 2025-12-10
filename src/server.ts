@@ -139,6 +139,10 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
+app.get('/robots.txt', (req, res) => {
+  res.sendFile('robots.txt', { root: 'public' });
+});
+
 /**
  * Serve static files from /browser
  */

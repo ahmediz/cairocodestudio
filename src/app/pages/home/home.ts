@@ -6,7 +6,7 @@ import { HomeSection } from '../../shared/components/home-section/home-section';
 import { ServiceItem } from '../../shared/components/service-item/service-item';
 import { PortfolioItem } from '../../shared/components/portfolio-item/portfolio-item';
 import { TestmonialItem } from '../../shared/components/testimonial-item/testimonial-item';
-import { NgOptimizedImage } from "@angular/common";
+import { NgOptimizedImage } from '@angular/common';
 import { PortfolioService } from '../../shared/services/portfolio';
 import { ServicesService } from '../../shared/services/services';
 
@@ -21,8 +21,8 @@ import { ServicesService } from '../../shared/services/services';
     ServiceItem,
     PortfolioItem,
     TestmonialItem,
-    NgOptimizedImage
-],
+    NgOptimizedImage,
+  ],
   templateUrl: './home.html',
   styleUrl: './home.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,9 +30,10 @@ import { ServicesService } from '../../shared/services/services';
 export class Home {
   portfolioService = inject(PortfolioService);
   servicesService = inject(ServicesService);
-  portfolio = computed(() => this.portfolioService.portfolio().filter(project => project.isFeatured));
+  portfolio = computed(() =>
+    this.portfolioService.portfolio().filter((project) => project.isFeatured)
+  );
   services = computed(() => this.servicesService.services());
-
 
   testimonials = signal([
     {
