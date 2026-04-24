@@ -25,7 +25,7 @@ async function getAccessToken(): Promise<string> {
   const oauth2Client = new OAuth2(
     process.env['GMAIL_CLIENT_ID'],
     process.env['GMAIL_CLIENT_SECRET'],
-    'https://developers.google.com/oauthplayground'
+    'https://developers.google.com/oauthplayground',
   );
 
   oauth2Client.setCredentials({
@@ -44,6 +44,16 @@ async function getAccessToken(): Promise<string> {
   }
 }
 
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env['GMAIL_USER'],
+    pass: process.env['GMAIL_PASSWORD'],
+  },
+});
+
+transporter.verify(console.log);
+
 async function sendEmail(formData: {
   name: string;
   subject: string;
@@ -51,22 +61,6 @@ async function sendEmail(formData: {
   phone: string;
   message: string;
 }) {
-  const accessToken = await getAccessToken();
-
-  const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-    auth: {
-      type: 'OAuth2',
-      user: process.env['GMAIL_USER'],
-      clientId: process.env['GMAIL_CLIENT_ID'],
-      clientSecret: process.env['GMAIL_CLIENT_SECRET'],
-      refreshToken: process.env['GMAIL_REFRESH_TOKEN'],
-      accessToken: accessToken,
-    },
-  });
-
   const recipientEmail = process.env['CONTACT_EMAIL'] || 'hello@cairocodestudio.com';
 
   const mailOptions = {
@@ -129,7 +123,6 @@ app.post('/api/contact', async (req, res) => {
       success: true,
       message: 'Email sent successfully',
     });
-
   } catch (error) {
     console.error('Error sending email:', error);
     res.status(500).json({
@@ -147,7 +140,7 @@ app.use(
     maxAge: '1y',
     index: false,
     redirect: false,
-  })
+  }),
 );
 
 /**
