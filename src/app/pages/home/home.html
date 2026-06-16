@@ -123,7 +123,7 @@
 </div>
 
 <c-home-section title="Our Services">
-  <div class="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-6 w-full">
+  <div class="grid md:grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-6 w-full">
     @for (service of services(); track service.title) {
       <c-service-item [service]="service" />
     }
@@ -141,39 +141,35 @@
   </div>
 </c-home-section>
 <c-home-section title="Our Portfolio" class="bg-gray-100" containerClass="max-w-full!">
-  <div class="container">
-    <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6 w-full">
-      @for (portfolio of portfolio(); track portfolio.id) {
-        <c-portfolio-item [portfolio]="portfolio" />
-      }
-    </div>
-    <div class="flex justify-center mt-6">
-      <p-button
-        label="Check Our Portfolio"
-        text="true"
-        styleClass="p-button-custom-text"
-        icon="pi pi-chevron-circle-right"
-        severity="contrast"
-        iconPos="right"
-        routerLink="/portfolio"
-      />
-    </div>
-    <!-- <c-scroll-container class="min-w-0 block w-full" [scrollValue]="400">
+  <div class="grid md:grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6 w-full">
+    @for (portfolio of portfolio(); track portfolio.id) {
+      <c-portfolio-item [portfolio]="portfolio" />
+    }
+  </div>
+  <div class="flex justify-center mt-6">
+    <p-button
+      label="Check Our Portfolio"
+      text="true"
+      styleClass="p-button-custom-text"
+      icon="pi pi-chevron-circle-right"
+      severity="contrast"
+      iconPos="right"
+      routerLink="/portfolio"
+    />
+  </div>
+  <!-- <c-scroll-container class="min-w-0 block w-full" [scrollValue]="400">
       <div class="flex gap-8">
         @for (portfolio of portfolio(); track portfolio.id) {
           <c-portfolio-item [portfolio]="portfolio" />
         }
       </div>
     </c-scroll-container> -->
-  </div>
 </c-home-section>
 
 <c-home-section title="Out Trusted Clients">
-  <div class="container">
-    <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6 w-full">
-      @for (testimonial of testimonials(); track testimonial.id) {
-        <c-testimonial-item [testimonial]="testimonial" />
-      }
-    </div>
+  <div class="grid md:grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6 w-full">
+    @for (testimonial of testimonials(); track testimonial.id) {
+      <c-testimonial-item [testimonial]="testimonial" />
+    }
   </div>
 </c-home-section>
