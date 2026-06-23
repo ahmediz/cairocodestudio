@@ -42,6 +42,7 @@ export class PortfolioService {
       image: 'images/projects/amplifai/thumb.png',
       link: 'https://portal.amplifaihealth.com',
       routerLink: '/projects/amplifai',
+      isFeatured: true,
     },
   ]);
 }
