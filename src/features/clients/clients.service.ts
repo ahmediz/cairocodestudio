@@ -7,7 +7,8 @@ export async function getClients(): Promise<ClientOutputDTO[]> {
       revalidate: 60, // Cache for 60 seconds
       tags: ['clients'],
     });
-  } catch {
+  } catch (error) {
+    console.error('Failed to get clients from API:', error);
     return [];
   }
 }

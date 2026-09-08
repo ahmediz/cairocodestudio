@@ -7,7 +7,8 @@ export async function getTestimonials(): Promise<TestimonialOutputDTO[]> {
       revalidate: 60,
       tags: ['testimonials'],
     });
-  } catch {
+  } catch (error) {
+    console.error('Failed to get testimonials from API:', error);
     return [];
   }
 }

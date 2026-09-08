@@ -1,5 +1,10 @@
 import type { NextConfig } from "next";
 
+const backendUrl =
+  process.env.API_URL ||
+  process.env.NEXT_PUBLIC_API_URL ||
+  "http://localhost:5001";
+
 const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
@@ -16,7 +21,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "http://localhost:5001/api/:path*",
+        destination: `${backendUrl.replace(/\/+$/, "")}/api/:path*`,
       },
     ];
   },

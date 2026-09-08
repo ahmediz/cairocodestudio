@@ -26,7 +26,8 @@ export async function getSettings(): Promise<SettingsOutputDTO> {
       tags: ['settings'],
     });
     return settings || defaultSettings;
-  } catch {
+  } catch (error) {
+    console.error('Failed to get settings from API, using default settings:', error);
     return defaultSettings;
   }
 }

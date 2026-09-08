@@ -10,7 +10,8 @@ export async function getProjects(featuredOnly = false): Promise<ProjectOutputDT
       revalidate: 60,
       tags: ['projects'],
     });
-  } catch {
+  } catch (error) {
+    console.error('Failed to get projects from API:', error);
     return [];
   }
 }
@@ -21,7 +22,8 @@ export async function getProjectBySlug(slug: string): Promise<ProjectOutputDTO |
       revalidate: 60,
       tags: ['projects', slug],
     });
-  } catch {
+  } catch (error) {
+    console.error(`Failed to get project by slug (${slug}) from API:`, error);
     return null;
   }
 }
