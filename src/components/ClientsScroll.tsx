@@ -52,7 +52,7 @@ export function ClientsScroll({ clients }: ClientsScrollProps) {
       {canScrollLeft && (
         <button
           onClick={() => scroll("left")}
-          className="absolute -left-3 z-10 p-2 rounded-full bg-white/90 shadow-md border hover:bg-white text-gray-700 transition-opacity"
+          className="absolute -left-3 z-10 p-2 rounded-full bg-primary text-white shadow-md text-whited transition-all duration-300"
           aria-label="Scroll left"
         >
           <ChevronLeft className="h-4 w-4" />
@@ -61,14 +61,14 @@ export function ClientsScroll({ clients }: ClientsScrollProps) {
 
       <div
         ref={scrollRef}
-        className="flex items-center gap-12 overflow-x-auto scrollbar-none py-4 px-2 w-full scroll-smooth"
+        className="flex items-center gap-12 overflow-x-auto scrollbar-none py-4 px-6 w-full scroll-smooth"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {clients.map((client) => {
           return (
             <div
               key={client.id}
-              className="shrink-0 grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300 flex items-center justify-center h-14"
+              className="shrink-0 flex items-center justify-center h-14"
             >
               <Image
                 src={client.logo}
@@ -81,11 +81,10 @@ export function ClientsScroll({ clients }: ClientsScrollProps) {
           );
         })}
       </div>
-
       {canScrollRight && (
         <button
           onClick={() => scroll("right")}
-          className="absolute -right-3 z-10 p-2 rounded-full bg-white/90 shadow-md border hover:bg-white text-gray-700 transition-opacity"
+          className="absolute -right-3 z-10 p-2 rounded-full bg-primary shadow-md text-white transition-all duration-300"
           aria-label="Scroll right"
         >
           <ChevronRight className="h-4 w-4" />

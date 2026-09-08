@@ -36,7 +36,7 @@ export function Header({ socials }: HeaderProps) {
             alt="Cairo Code Studio Logo"
             width={157}
             height={56}
-            className="h-12 w-auto"
+            className="h-14 w-auto"
             priority
           />
         </Link>
@@ -79,7 +79,7 @@ export function Header({ socials }: HeaderProps) {
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-5">
           <SocialIcons socials={socials} />
-          <Button onClick={openModal} size="sm" className="font-semibold">
+          <Button onClick={openModal} className="font-semibold">
             Let's Talk
           </Button>
         </div>

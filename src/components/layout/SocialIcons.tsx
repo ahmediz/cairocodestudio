@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Facebook,
   Instagram,
@@ -6,7 +6,7 @@ import {
   Twitter,
   Github,
   Globe,
-} from 'lucide-react';
+} from "lucide-react";
 
 export interface SocialLinks {
   facebook?: string | null;
@@ -23,50 +23,58 @@ export interface SocialIconsProps {
   socials?: SocialLinks | null;
 }
 
-export function SocialIcons({ className = '', socials }: SocialIconsProps) {
+export function SocialIcons({ className = "", socials }: SocialIconsProps) {
   // Built-in defaults if no socials provided at all
-  const items: { name: string; href: string; icon: React.ComponentType<{ className?: string }> }[] = [];
+  const items: {
+    name: string;
+    href: string;
+    icon: React.ComponentType<{ className?: string }>;
+  }[] = [];
 
   if (socials) {
     if (socials.facebook) {
-      items.push({ name: 'Facebook', href: socials.facebook, icon: Facebook });
+      items.push({ name: "Facebook", href: socials.facebook, icon: Facebook });
     }
     if (socials.instagram) {
-      items.push({ name: 'Instagram', href: socials.instagram, icon: Instagram });
+      items.push({
+        name: "Instagram",
+        href: socials.instagram,
+        icon: Instagram,
+      });
     }
     if (socials.linkedin) {
-      items.push({ name: 'LinkedIn', href: socials.linkedin, icon: Linkedin });
+      items.push({ name: "LinkedIn", href: socials.linkedin, icon: Linkedin });
     }
     if (socials.twitter) {
-      items.push({ name: 'X (Twitter)', href: socials.twitter, icon: Twitter });
+      items.push({ name: "X (Twitter)", href: socials.twitter, icon: Twitter });
     }
     if (socials.github) {
-      items.push({ name: 'GitHub', href: socials.github, icon: Github });
+      items.push({ name: "GitHub", href: socials.github, icon: Github });
     }
     if (socials.behance) {
-      items.push({ name: 'Behance', href: socials.behance, icon: Globe });
+      items.push({ name: "Behance", href: socials.behance, icon: Globe });
     }
     if (socials.dribbble) {
-      items.push({ name: 'Dribbble', href: socials.dribbble, icon: Globe });
+      items.push({ name: "Dribbble", href: socials.dribbble, icon: Globe });
     }
   } else {
     // Fallback default socials
     items.push(
       {
-        name: 'Facebook',
-        href: 'https://www.facebook.com/cairocodestudio',
+        name: "Facebook",
+        href: "https://www.facebook.com/cairocodestudio",
         icon: Facebook,
       },
       {
-        name: 'Instagram',
-        href: 'https://www.instagram.com/cairocodestudio',
+        name: "Instagram",
+        href: "https://www.instagram.com/cairocodestudio",
         icon: Instagram,
       },
       {
-        name: 'LinkedIn',
-        href: 'https://www.linkedin.com/company/cairo-code-studio/',
+        name: "LinkedIn",
+        href: "https://www.linkedin.com/company/cairo-code-studio/",
         icon: Linkedin,
-      }
+      },
     );
   }
 
@@ -82,7 +90,7 @@ export function SocialIcons({ className = '', socials }: SocialIconsProps) {
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 hover:text-primary transition-colors flex items-center justify-center p-1.5 rounded-full hover:bg-gray-100"
+              className="text-gray-600 hover:text-primary transition-colors flex items-center justify-center"
               aria-label={item.name}
             >
               <Icon className="h-5 w-5" />

@@ -76,7 +76,7 @@ export default async function HomePage() {
                 <Button
                   asChild
                   variant="customText"
-                  className="text-gray-900 font-semibold text-base gap-2 hover:text-primary transition-colors"
+                  className="text-gray-900 font-semibold text-base gap-2 px-0 hover:text-primary transition-colors"
                 >
                   <Link href="/about">
                     Learn More <ChevronRight className="h-4 w-4" />
