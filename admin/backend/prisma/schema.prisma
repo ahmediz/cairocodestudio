@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Testimonial {
+  id          String   @id @default(cuid())
+  name        String
+  company     String
+  description String
+  rating      Float    @default(5.0)
+  logo        String
+  logoAlt     String?
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("testimonials")
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String
+  image       String
+  link        String?
+  routerLink  String?
+  isFeatured  Boolean  @default(false)
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("projects")
+}
+
+model Client {
+  id        String   @id @default(cuid())
+  name      String
+  logo      String
+  alt       String?
+  order     Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("clients")
+}
+
+model Inquiry {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String
+  subject   String
+  message   String
+  type      String   @default("contact") // "contact" | "lets_talk"
+  status    String   @default("pending") // "pending" | "contacted" | "closed"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("inquiries")
+}
