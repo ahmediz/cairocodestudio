@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 import { apiClient } from '@/lib/apiClient';
 import { CreateClientInputDTO, UpdateClientInputDTO } from './dtos/clientsInputDTO';
 import { ClientOutputDTO } from './dtos/clientsOutputDTO';
@@ -19,6 +20,10 @@ export function useClients() {
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['clients'] });
+      toast.success('Client created successfully!');
+    },
+    onError: (err: Error) => {
+      toast.error(err.message || 'Failed to create client');
     },
   });
 
@@ -30,6 +35,10 @@ export function useClients() {
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['clients'] });
+      toast.success('Client updated successfully!');
+    },
+    onError: (err: Error) => {
+      toast.error(err.message || 'Failed to update client');
     },
   });
 
@@ -40,8 +49,13 @@ export function useClients() {
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['clients'] });
+      toast.success('Client deleted successfully!');
+    },
+    onError: (err: Error) => {
+      toast.error(err.message || 'Failed to delete client');
     },
   });
+
 
   return {
     clients: clientsQuery.data ?? [],

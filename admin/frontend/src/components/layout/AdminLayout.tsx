@@ -5,11 +5,25 @@ import {
   MessageSquareQuote,
   Inbox,
   ExternalLink,
-  ShieldCheck,
+  LogOut,
+  ChevronDown,
+  Settings,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/context/AuthContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
 
 export function AdminLayout() {
+  const { user, logout } = useAuth();
+
   const navItems = [
     {
       label: "Projects",
@@ -35,18 +49,33 @@ export function AdminLayout() {
       icon: Inbox,
       description: "Contact & Leads",
     },
+    {
+      label: "Settings",
+      to: "/settings",
+      icon: Settings,
+      description: "Contact & Social",
+    },
   ];
+
+  const userInitials = user?.name
+    ? user.name
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .substring(0, 2)
+        .toUpperCase()
+    : "AD";
 
   return (
     <div className="min-h-screen flex bg-gray-50/50">
       {/* Sidebar */}
       <aside className="w-64 border-r bg-white flex flex-col shrink-0">
-        <div className="p-5 border-b flex flex-col gap-2">
-          <Link to="/" className="block">
+        <div className="h-16 border-b px-6 flex items-center justify-between">
+          <Link to="/" className="flex items-center">
             <img
               src="/logo-dark.svg"
               alt="Cairo Code Studio"
-              className="h-10 w-auto object-contain"
+              className="h-8 w-auto object-contain"
             />
           </Link>
         </div>
@@ -101,7 +130,51 @@ export function AdminLayout() {
           <h1 className="text-sm font-medium text-muted-foreground">
             Cairo Code Studio Management Console
           </h1>
+
+          {/* User Profile & Logout Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center gap-3 p-1.5 rounded-lg hover:bg-gray-100 transition-colors focus:outline-none">
+              <div className="h-8 w-8 rounded-full bg-primary text-white flex items-center justify-center font-semibold text-xs shadow-sm ring-2 ring-primary/20">
+                {userInitials}
+              </div>
+              <div className="hidden sm:flex flex-col text-left">
+                <span className="text-xs font-semibold text-gray-900 leading-tight">
+                  {user?.name || "Admin User"}
+                </span>
+                <span className="text-[10px] text-gray-500 leading-tight">
+                  {user?.email || "admin@cairocodestudio.com"}
+                </span>
+              </div>
+              <ChevronDown className="h-4 w-4 text-gray-400" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuLabel className="font-normal p-2">
+                <div className="flex flex-col space-y-1">
+                  <div className="flex items-center justify-between">
+                    <p className="text-xs font-semibold text-gray-900">
+                      {user?.name || "Admin User"}
+                    </p>
+                    <Badge variant="secondary" className="text-[9px] px-1.5 py-0 h-4">
+                      {user?.role || "ADMIN"}
+                    </Badge>
+                  </div>
+                  <p className="text-[11px] text-gray-500 truncate">
+                    {user?.email || "admin@cairocodestudio.com"}
+                  </p>
+                </div>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={logout}
+                className="text-destructive focus:bg-destructive/10 focus:text-destructive gap-2 cursor-pointer font-medium text-xs"
+              >
+                <LogOut className="h-4 w-4" />
+                <span>Log out</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </header>
+
         <div className="flex-1 p-8 overflow-y-auto">
           <div className="max-w-6xl mx-auto">
             <Outlet />
@@ -111,3 +184,4 @@ export function AdminLayout() {
     </div>
   );
 }
+

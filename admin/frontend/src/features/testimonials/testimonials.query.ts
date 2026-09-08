@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 import { apiClient } from '@/lib/apiClient';
 import { CreateTestimonialInputDTO, UpdateTestimonialInputDTO } from './dtos/testimonialsInputDTO';
 import { TestimonialOutputDTO } from './dtos/testimonialsOutputDTO';
@@ -19,6 +20,10 @@ export function useTestimonials() {
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['testimonials'] });
+      toast.success('Testimonial created successfully!');
+    },
+    onError: (err: Error) => {
+      toast.error(err.message || 'Failed to create testimonial');
     },
   });
 
@@ -30,6 +35,10 @@ export function useTestimonials() {
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['testimonials'] });
+      toast.success('Testimonial updated successfully!');
+    },
+    onError: (err: Error) => {
+      toast.error(err.message || 'Failed to update testimonial');
     },
   });
 
@@ -40,8 +49,13 @@ export function useTestimonials() {
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['testimonials'] });
+      toast.success('Testimonial deleted successfully!');
+    },
+    onError: (err: Error) => {
+      toast.error(err.message || 'Failed to delete testimonial');
     },
   });
+
 
   return {
     testimonials: testimonialsQuery.data ?? [],

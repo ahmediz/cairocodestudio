@@ -1,6 +1,5 @@
-import React from 'react';
-import Image from 'next/image';
 import { Linkedin } from 'lucide-react';
+import Image from 'next/image';
 
 interface TeamMember {
   name: string;
@@ -10,15 +9,12 @@ interface TeamMember {
 }
 
 export function TeamCard({ member }: { member: TeamMember }) {
-  const imageSrc = member.image.startsWith('/')
-    ? member.image
-    : `/${member.image}`;
 
   return (
     <div className="flex flex-col items-center gap-3 text-center group">
       <div className="relative w-48 h-48 rounded-2xl overflow-hidden bg-gray-100 shadow-sm">
         <Image
-          src={imageSrc}
+          src={member.image}
           alt={member.name}
           fill
           className="object-cover grayscale group-hover:grayscale-0 transition-all duration-300"

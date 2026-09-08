@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import multer from 'multer';
-import { uploadImageToNeon } from '../lib/storage.js';
+import { uploadImageToNeon } from '../lib/storage';
 
 export const uploadRouter = Router();
 

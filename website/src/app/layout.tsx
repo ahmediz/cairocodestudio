@@ -4,6 +4,7 @@ import './globals.css';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { ContactModalProvider } from '@/context/ContactModalContext';
+import { getSettings } from '@/features/settings/settings.service';
 
 const antonio = Antonio({
   subsets: ['latin'],
@@ -51,18 +52,29 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const settings = await getSettings();
+  const socials = {
+    facebook: settings.facebook,
+    instagram: settings.instagram,
+    linkedin: settings.linkedin,
+    twitter: settings.twitter,
+    github: settings.github,
+    behance: settings.behance,
+    dribbble: settings.dribbble,
+  };
+
   return (
     <html lang="en" className={`${antonio.variable} ${inter.variable}`}>
       <body className="flex min-h-screen flex-col font-inter">
         <ContactModalProvider>
-          <Header />
+          <Header socials={socials} />
           <main className="flex-1">{children}</main>
-          <Footer />
+          <Footer socials={socials} />
         </ContactModalProvider>
       </body>
     </html>

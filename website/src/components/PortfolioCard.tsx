@@ -1,7 +1,6 @@
-import React from 'react';
-import Image from 'next/image';
-import { ExternalLink } from 'lucide-react';
 import { ProjectOutputDTO } from '@/features/projects/dtos/projectsOutputDTO';
+import { ExternalLink } from 'lucide-react';
+import Image from 'next/image';
 import { Button } from './ui/button';
 
 interface PortfolioCardProps {
@@ -9,15 +8,12 @@ interface PortfolioCardProps {
 }
 
 export function PortfolioCard({ project }: PortfolioCardProps) {
-  const imageSrc = project.image.startsWith('/')
-    ? project.image
-    : `/${project.image}`;
 
   return (
     <div className="h-full flex flex-col bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
       <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-gray-100">
         <Image
-          src={imageSrc}
+          src={project.image}
           alt={project.title}
           fill
           className="object-cover"

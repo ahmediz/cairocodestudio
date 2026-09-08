@@ -74,9 +74,24 @@ export function ProjectsView() {
       accessorKey: 'image',
       header: 'Image',
       cell: ({ row }) => (
-        <span className="font-mono text-xs text-gray-500 truncate max-w-[120px] block">
-          {row.original.image}
-        </span>
+        <div className="flex items-center gap-2 max-w-[180px]">
+          <div className="h-8 w-12 rounded border bg-gray-50 shrink-0 overflow-hidden flex items-center justify-center">
+            <img
+              src={row.original.image}
+              alt={row.original.title}
+              className="h-full w-full object-cover"
+              onError={(e) => {
+                (e.target as HTMLElement).style.display = 'none';
+              }}
+            />
+          </div>
+          <span
+            className="font-mono text-xs text-gray-500 truncate block flex-1"
+            title={row.original.image}
+          >
+            {row.original.image}
+          </span>
+        </div>
       ),
     },
     {

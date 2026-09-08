@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useRef, useState, useEffect } from 'react';
-import Image from 'next/image';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { ClientOutputDTO } from '@/features/clients/dtos/clientsOutputDTO';
+import { ClientOutputDTO } from "@/features/clients/dtos/clientsOutputDTO";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
 interface ClientsScrollProps {
   clients: ClientOutputDTO[];
@@ -26,21 +26,21 @@ export function ClientsScroll({ clients }: ClientsScrollProps) {
     checkScroll();
     const current = scrollRef.current;
     if (current) {
-      current.addEventListener('scroll', checkScroll);
-      window.addEventListener('resize', checkScroll);
+      current.addEventListener("scroll", checkScroll);
+      window.addEventListener("resize", checkScroll);
       return () => {
-        current.removeEventListener('scroll', checkScroll);
-        window.removeEventListener('resize', checkScroll);
+        current.removeEventListener("scroll", checkScroll);
+        window.removeEventListener("resize", checkScroll);
       };
     }
   }, [clients]);
 
-  const scroll = (direction: 'left' | 'right') => {
+  const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
       const amount = 300;
       scrollRef.current.scrollBy({
-        left: direction === 'left' ? -amount : amount,
-        behavior: 'smooth',
+        left: direction === "left" ? -amount : amount,
+        behavior: "smooth",
       });
     }
   };
@@ -51,7 +51,7 @@ export function ClientsScroll({ clients }: ClientsScrollProps) {
     <div className="relative group w-full flex items-center">
       {canScrollLeft && (
         <button
-          onClick={() => scroll('left')}
+          onClick={() => scroll("left")}
           className="absolute -left-3 z-10 p-2 rounded-full bg-white/90 shadow-md border hover:bg-white text-gray-700 transition-opacity"
           aria-label="Scroll left"
         >
@@ -62,27 +62,29 @@ export function ClientsScroll({ clients }: ClientsScrollProps) {
       <div
         ref={scrollRef}
         className="flex items-center gap-12 overflow-x-auto scrollbar-none py-4 px-2 w-full scroll-smooth"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
-        {clients.map((client) => (
-          <div
-            key={client.id}
-            className="shrink-0 grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300 flex items-center justify-center h-14"
-          >
-            <Image
-              src={client.logo.startsWith('/') ? client.logo : `/${client.logo}`}
-              alt={client.alt || `${client.name} Logo`}
-              width={160}
-              height={50}
-              className="max-h-12 w-auto object-contain"
-            />
-          </div>
-        ))}
+        {clients.map((client) => {
+          return (
+            <div
+              key={client.id}
+              className="shrink-0 grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300 flex items-center justify-center h-14"
+            >
+              <Image
+                src={client.logo}
+                alt={client.alt || `${client.name} Logo`}
+                width={160}
+                height={50}
+                className="max-h-12 w-auto object-contain"
+              />
+            </div>
+          );
+        })}
       </div>
 
       {canScrollRight && (
         <button
-          onClick={() => scroll('right')}
+          onClick={() => scroll("right")}
           className="absolute -right-3 z-10 p-2 rounded-full bg-white/90 shadow-md border hover:bg-white text-gray-700 transition-opacity"
           aria-label="Scroll right"
         >

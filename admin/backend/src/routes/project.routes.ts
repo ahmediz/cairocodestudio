@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
-import { prisma } from '../lib/prisma.js';
-import { createProjectSchema, updateProjectSchema } from '../schemas/project.schema.js';
+import { prisma } from '../lib/prisma';
+import { createProjectSchema, updateProjectSchema } from '../schemas/project.schema';
+import { triggerRevalidation } from '../utils/revalidate';
 
 export const projectRouter = Router();
 
@@ -64,6 +65,7 @@ projectRouter.post('/', async (req: Request, res: Response) => {
     const project = await prisma.project.create({
       data: parsed.data,
     });
+    await triggerRevalidation(['projects', project.slug], ['/', '/portfolio']);
     res.status(201).json(project);
   } catch (error) {
     console.error('Failed to create project:', error);
@@ -91,10 +93,22 @@ projectRouter.put('/:id', async (req: Request, res: Response) => {
       }
     }
 
+    const existingProject = await prisma.project.findUnique({
+      where: { id: req.params.id },
+      select: { slug: true },
+    });
+
     const project = await prisma.project.update({
       where: { id: req.params.id },
       data: parsed.data,
     });
+
+    const tags = ['projects', project.slug];
+    if (existingProject?.slug && existingProject.slug !== project.slug) {
+      tags.push(existingProject.slug);
+    }
+    await triggerRevalidation(tags, ['/', '/portfolio']);
+
     res.json(project);
   } catch (error) {
     console.error('Failed to update project:', error);
@@ -105,12 +119,25 @@ projectRouter.put('/:id', async (req: Request, res: Response) => {
 // DELETE project
 projectRouter.delete('/:id', async (req: Request, res: Response) => {
   try {
+    const existingProject = await prisma.project.findUnique({
+      where: { id: req.params.id },
+      select: { slug: true },
+    });
+
     await prisma.project.delete({
       where: { id: req.params.id },
     });
+
+    const tags = ['projects'];
+    if (existingProject?.slug) {
+      tags.push(existingProject.slug);
+    }
+    await triggerRevalidation(tags, ['/', '/portfolio']);
+
     res.json({ success: true, message: 'Project deleted successfully' });
   } catch (error) {
     console.error('Failed to delete project:', error);
     res.status(500).json({ error: 'Failed to delete project' });
   }
 });
+

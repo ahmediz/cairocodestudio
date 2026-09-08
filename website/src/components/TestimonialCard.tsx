@@ -1,25 +1,18 @@
-import React from 'react';
-import Image from 'next/image';
-import { Star } from 'lucide-react';
-import { TestimonialOutputDTO } from '@/features/testimonials/dtos/testimonialsOutputDTO';
+import { TestimonialOutputDTO } from "@/features/testimonials/dtos/testimonialsOutputDTO";
+import { Star } from "lucide-react";
+import Image from "next/image";
 
 interface TestimonialCardProps {
   testimonial: TestimonialOutputDTO;
 }
 
 export function TestimonialCard({ testimonial }: TestimonialCardProps) {
-  const logoSrc = testimonial.logo.startsWith('/')
-    ? testimonial.logo
-    : testimonial.logo.startsWith('images/')
-    ? `/${testimonial.logo}`
-    : `/images/clients/${testimonial.logo}`;
-
   return (
     <div className="flex flex-col gap-6 border border-gray-100 rounded-2xl p-6 h-full bg-white shadow-sm hover:shadow-md transition-shadow">
       <div className="flex items-center justify-between">
         <div className="relative h-8 w-28 flex items-center">
           <Image
-            src={logoSrc}
+            src={testimonial.logo}
             alt={testimonial.logoAlt || `${testimonial.company} Logo`}
             width={120}
             height={32}

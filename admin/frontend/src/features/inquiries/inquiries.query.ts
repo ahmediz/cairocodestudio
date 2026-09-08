@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 import { apiClient } from '@/lib/apiClient';
 import { UpdateInquiryStatusInputDTO } from './dtos/inquiriesInputDTO';
 import { InquiryOutputDTO } from './dtos/inquiriesOutputDTO';
@@ -25,6 +26,10 @@ export function useInquiries() {
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['inquiries'] });
+      toast.success('Inquiry status updated successfully!');
+    },
+    onError: (err: Error) => {
+      toast.error(err.message || 'Failed to update inquiry status');
     },
   });
 
@@ -35,8 +40,13 @@ export function useInquiries() {
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['inquiries'] });
+      toast.success('Inquiry deleted successfully!');
+    },
+    onError: (err: Error) => {
+      toast.error(err.message || 'Failed to delete inquiry');
     },
   });
+
 
   return {
     inquiries: inquiriesQuery.data ?? [],

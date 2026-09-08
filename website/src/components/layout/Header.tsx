@@ -6,11 +6,15 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { SocialIcons } from './SocialIcons';
+import { SocialIcons, SocialLinks } from './SocialIcons';
 import { useContactModal } from '@/context/ContactModalContext';
 import { cn } from '@/lib/utils';
 
-export function Header() {
+interface HeaderProps {
+  socials?: SocialLinks | null;
+}
+
+export function Header({ socials }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const { openModal } = useContactModal();
@@ -74,7 +78,7 @@ export function Header() {
 
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-5">
-          <SocialIcons />
+          <SocialIcons socials={socials} />
           <Button onClick={openModal} size="sm" className="font-semibold">
             Let's Talk
           </Button>
@@ -131,7 +135,7 @@ export function Header() {
           </nav>
 
           <div className="pt-6 border-t border-white/10 space-y-6">
-            <SocialIcons className="justify-center [&_a]:text-white [&_a:hover]:text-primary [&_a:hover]:bg-white/10" />
+            <SocialIcons socials={socials} className="justify-center [&_a]:text-white [&_a:hover]:text-primary [&_a:hover]:bg-white/10" />
             <Button
               onClick={() => {
                 setIsMenuOpen(false);

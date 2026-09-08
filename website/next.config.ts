@@ -1,19 +1,22 @@
-import type { NextConfig } from 'next';
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: '**',
+        protocol: "https",
+        hostname:
+          "br-falling-bonus-ay5ahja3.storage.c-5.us-east-2.aws.neon.tech",
+        pathname: "/uploads/**",
       },
     ],
   },
   async rewrites() {
     return [
       {
-        source: '/api/:path*',
-        destination: 'http://localhost:5001/api/:path*',
+        source: "/api/:path*",
+        destination: "http://localhost:5001/api/:path*",
       },
     ];
   },

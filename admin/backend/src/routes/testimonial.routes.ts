@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
-import { prisma } from '../lib/prisma.js';
-import { createTestimonialSchema, updateTestimonialSchema } from '../schemas/testimonial.schema.js';
+import { prisma } from '../lib/prisma';
+import { createTestimonialSchema, updateTestimonialSchema } from '../schemas/testimonial.schema';
+import { triggerRevalidation } from '../utils/revalidate';
 
 export const testimonialRouter = Router();
 
@@ -48,6 +49,7 @@ testimonialRouter.post('/', async (req: Request, res: Response) => {
     const testimonial = await prisma.testimonial.create({
       data: parsed.data,
     });
+    await triggerRevalidation(['testimonials'], '/');
     res.status(201).json(testimonial);
   } catch (error) {
     console.error('Failed to create testimonial:', error);
@@ -67,6 +69,7 @@ testimonialRouter.put('/:id', async (req: Request, res: Response) => {
       where: { id: req.params.id },
       data: parsed.data,
     });
+    await triggerRevalidation(['testimonials'], '/');
     res.json(testimonial);
   } catch (error) {
     console.error('Failed to update testimonial:', error);
@@ -80,9 +83,11 @@ testimonialRouter.delete('/:id', async (req: Request, res: Response) => {
     await prisma.testimonial.delete({
       where: { id: req.params.id },
     });
+    await triggerRevalidation(['testimonials'], '/');
     res.json({ success: true, message: 'Testimonial deleted successfully' });
   } catch (error) {
     console.error('Failed to delete testimonial:', error);
     res.status(500).json({ error: 'Failed to delete testimonial' });
   }
 });
+

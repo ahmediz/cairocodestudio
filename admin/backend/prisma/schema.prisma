@@ -79,3 +79,23 @@ model Inquiry {
 
   @@map("inquiries")
 }
+
+model SiteSettings {
+  id           String   @id @default(cuid())
+  email        String   @default("hello@cairocodestudio.com")
+  phone        String   @default("+201000 60 9719")
+  whatsapp     String?
+  address      String   @default("Nasr City, Cairo, Egypt")
+  workingHours String?  @default("Sun - Thu: 9:00 AM - 6:00 PM")
+  facebook     String?  @default("https://www.facebook.com/cairocodestudio")
+  instagram    String?  @default("https://www.instagram.com/cairocodestudio")
+  linkedin     String?  @default("https://www.linkedin.com/company/cairo-code-studio/")
+  twitter      String?
+  github       String?
+  behance      String?
+  dribbble     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("site_settings")
+}

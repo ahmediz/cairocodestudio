@@ -5,10 +5,17 @@ export async function apiClient<T>(
   options: RequestInit = {}
 ): Promise<T> {
   const url = endpoint.startsWith('http') ? endpoint : `${BASE_URL}${endpoint}`;
-  const headers = {
+  
+  const token = typeof window !== 'undefined' ? localStorage.getItem('ccs_admin_token') : null;
+
+  const headers: Record<string, string> = {
     'Content-Type': 'application/json',
-    ...options.headers,
+    ...(options.headers as Record<string, string>),
   };
+
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
 
   const response = await fetch(url, {
     ...options,
@@ -16,6 +23,14 @@ export async function apiClient<T>(
   });
 
   if (!response.ok) {
+    if (response.status === 401 && typeof window !== 'undefined') {
+      if (!window.location.pathname.startsWith('/login')) {
+        localStorage.removeItem('ccs_admin_token');
+        localStorage.removeItem('ccs_admin_user');
+        window.location.href = '/login';
+      }
+    }
+
     let errorMessage = `API Error: ${response.status} ${response.statusText}`;
     try {
       const errorBody = await response.json();
@@ -23,7 +38,7 @@ export async function apiClient<T>(
       else if (errorBody.message) errorMessage = errorBody.message;
       else if (errorBody.errors) errorMessage = JSON.stringify(errorBody.errors);
     } catch {
-      // Ignored if response is not JSON
+      // Ignored
     }
     throw new Error(errorMessage);
   }

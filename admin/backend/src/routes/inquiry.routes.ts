@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
-import { prisma } from '../lib/prisma.js';
-import { updateInquiryStatusSchema } from '../schemas/inquiry.schema.js';
+import { prisma } from '../lib/prisma';
+import { updateInquiryStatusSchema } from '../schemas/inquiry.schema';
 
 export const inquiryRouter = Router();
 

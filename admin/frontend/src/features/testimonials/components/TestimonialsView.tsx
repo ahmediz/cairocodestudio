@@ -71,7 +71,24 @@ export function TestimonialsView() {
       accessorKey: 'logo',
       header: 'Logo',
       cell: ({ row }) => (
-        <span className="font-mono text-xs text-gray-500">{row.original.logo}</span>
+        <div className="flex items-center gap-2 max-w-[180px]">
+          <div className="h-8 w-8 rounded border bg-gray-50 shrink-0 overflow-hidden flex items-center justify-center">
+            <img
+              src={row.original.logo}
+              alt={row.original.name}
+              className="h-full w-full object-contain p-0.5"
+              onError={(e) => {
+                (e.target as HTMLElement).style.display = 'none';
+              }}
+            />
+          </div>
+          <span
+            className="font-mono text-xs text-gray-500 truncate block flex-1"
+            title={row.original.logo}
+          >
+            {row.original.logo}
+          </span>
+        </div>
       ),
     },
     {

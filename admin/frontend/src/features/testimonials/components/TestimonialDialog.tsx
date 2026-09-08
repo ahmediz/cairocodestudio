@@ -94,9 +94,14 @@ export function TestimonialDialog({
   }, [initialData, reset, open]);
 
   const handleFormSubmit = async (values: TestimonialFormValues) => {
-    await onSubmit(values);
-    onOpenChange(false);
+    try {
+      await onSubmit(values);
+      onOpenChange(false);
+    } catch {
+      // Toast error is handled by mutation in testimonials.query.ts
+    }
   };
+
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -106,7 +111,7 @@ export function TestimonialDialog({
             {initialData ? 'Edit Testimonial' : 'Add Testimonial'}
           </DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4 py-2">
+        <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4 py-2 min-w-0 w-full">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1">
               <label className="text-sm font-medium">Client Name *</label>

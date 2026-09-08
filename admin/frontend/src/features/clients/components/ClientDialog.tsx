@@ -81,9 +81,14 @@ export function ClientDialog({
   }, [initialData, reset, open]);
 
   const handleFormSubmit = async (values: ClientFormValues) => {
-    await onSubmit(values);
-    onOpenChange(false);
+    try {
+      await onSubmit(values);
+      onOpenChange(false);
+    } catch {
+      // Toast error is handled by mutation in clients.query.ts
+    }
   };
+
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -91,7 +96,7 @@ export function ClientDialog({
         <DialogHeader>
           <DialogTitle>{initialData ? 'Edit Client' : 'Add Client'}</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4 py-2">
+        <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4 py-2 min-w-0 w-full">
           <div className="space-y-1">
             <label className="text-sm font-medium">Client Name *</label>
             <Input placeholder="e.g. King Faisal Hospital" {...register('name')} />

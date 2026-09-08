@@ -1,10 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { SocialIcons } from './SocialIcons';
+import { SocialIcons, SocialLinks } from './SocialIcons';
 import { CtaSection } from '../CtaSection';
 
-export function Footer() {
+interface FooterProps {
+  socials?: SocialLinks | null;
+}
+
+export function Footer({ socials }: FooterProps) {
   const footerLinks = [
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
@@ -42,7 +46,7 @@ export function Footer() {
               ))}
             </ul>
 
-            <SocialIcons className="[&_a]:text-gray-400 [&_a:hover]:text-primary [&_a:hover]:bg-white/5" />
+            <SocialIcons socials={socials} className="[&_a]:text-gray-400 [&_a:hover]:text-primary [&_a:hover]:bg-white/5" />
           </div>
 
           <div className="mt-8 pt-8 border-t border-white/10 text-center text-xs text-gray-400">

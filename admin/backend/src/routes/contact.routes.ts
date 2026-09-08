@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
-import { prisma } from '../lib/prisma.js';
-import { contactSubmissionSchema } from '../schemas/inquiry.schema.js';
-import { sendInquiryNotification } from '../lib/email.js';
+import { prisma } from '../lib/prisma';
+import { contactSubmissionSchema } from '../schemas/inquiry.schema';
+import { sendInquiryNotification } from '../lib/email';
 
 export const contactRouter = Router();
 

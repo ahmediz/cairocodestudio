@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { Upload, X, Loader2, Sparkles, Image as ImageIcon } from 'lucide-react';
+import { Upload, X, Loader2, Sparkles, Image as ImageIcon, ExternalLink } from 'lucide-react';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -11,6 +12,15 @@ interface ImageUploadProps {
   error?: string;
 }
 
+const getFileName = (url: string): string => {
+  try {
+    const raw = url.split('/').pop() || url;
+    return decodeURIComponent(raw);
+  } catch {
+    return url;
+  }
+};
+
 export function ImageUpload({
   value,
   onChange,
@@ -19,7 +29,6 @@ export function ImageUpload({
   error,
 }: ImageUploadProps) {
   const [isUploading, setIsUploading] = useState(false);
-  const [uploadError, setUploadError] = useState<string | null>(null);
   const [isManualInput, setIsManualInput] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -28,7 +37,6 @@ export function ImageUpload({
     if (!file) return;
 
     setIsUploading(true);
-    setUploadError(null);
 
     const formData = new FormData();
     formData.append('image', file);
@@ -46,9 +54,11 @@ export function ImageUpload({
 
       const data = await res.json();
       onChange(data.url);
-    } catch (err: any) {
+      toast.success('Image uploaded and optimized to AVIF!');
+    } catch (err: unknown) {
       console.error('Image upload failed:', err);
-      setUploadError(err.message || 'Image upload failed. Please try again.');
+      const message = err instanceof Error ? err.message : 'Image upload failed. Please try again.';
+      toast.error(message);
     } finally {
       setIsUploading(false);
       if (fileInputRef.current) {
@@ -57,43 +67,44 @@ export function ImageUpload({
     }
   };
 
+
   const handleRemove = () => {
     onChange('');
-    setUploadError(null);
   };
 
   return (
-    <div className="space-y-2">
-      <div className="flex items-center justify-between">
-        <label className="text-sm font-medium text-gray-700 flex items-center gap-1.5">
+    <div className="space-y-2 w-full min-w-0">
+      <div className="flex items-center justify-between gap-2">
+        <label className="text-sm font-medium text-gray-700 flex items-center gap-1.5 truncate">
           {label}
-          <span className="inline-flex items-center gap-0.5 text-[10px] font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded-full">
+          <span className="inline-flex items-center gap-0.5 text-[10px] font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded-full shrink-0">
             <Sparkles className="h-2.5 w-2.5" /> AVIF
           </span>
         </label>
         <button
           type="button"
           onClick={() => setIsManualInput(!isManualInput)}
-          className="text-xs text-muted-foreground hover:text-primary underline"
+          className="text-xs text-muted-foreground hover:text-primary underline shrink-0"
         >
           {isManualInput ? 'Upload file instead' : 'Enter URL / path manually'}
         </button>
       </div>
 
       {isManualInput ? (
-        <div className="space-y-1">
+        <div className="space-y-1 w-full min-w-0">
           <Input
             placeholder="https://... or /images/..."
             value={value || ''}
             onChange={(e) => onChange(e.target.value)}
+            className="w-full"
           />
           <p className="text-[11px] text-muted-foreground">
             Direct path or CDN URL
           </p>
         </div>
       ) : value ? (
-        <div className="relative rounded-xl border border-gray-200 p-2 bg-gray-50 flex items-center gap-3">
-          <div className="relative h-16 w-20 rounded-lg overflow-hidden bg-white border shrink-0 flex items-center justify-center">
+        <div className="relative rounded-xl border border-gray-200 p-2.5 bg-gray-50 flex items-center gap-3 w-full min-w-0 overflow-hidden">
+          <div className="relative h-16 w-20 rounded-lg overflow-hidden bg-white border shrink-0 flex items-center justify-center shadow-xs">
             <img
               src={value}
               alt="Uploaded preview"
@@ -105,24 +116,41 @@ export function ImageUpload({
             />
             <ImageIcon className="h-6 w-6 text-gray-300 absolute -z-10" />
           </div>
-          <div className="flex-1 min-w-0">
-            <div className="text-xs font-mono text-gray-800 truncate">
-              {value}
+          <div className="flex-1 min-w-0 overflow-hidden">
+            <div
+              className="text-xs font-semibold text-gray-900 truncate"
+              title={getFileName(value)}
+            >
+              {getFileName(value)}
             </div>
-            <div className="text-[11px] text-emerald-600 font-medium flex items-center gap-1 mt-0.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              Stored on Neon Object Storage (.avif)
+            <div className="flex items-center gap-1 mt-0.5">
+              <Sparkles className="h-3 w-3 text-emerald-600 shrink-0" />
+              <span className="text-[10px] text-emerald-600 font-medium truncate">
+                Neon S3 / AVIF Optimized
+              </span>
             </div>
           </div>
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={handleRemove}
-            className="h-8 w-8 p-0 text-muted-foreground hover:text-destructive shrink-0"
-          >
-            <X className="h-4 w-4" />
-          </Button>
+          <div className="flex items-center gap-1 shrink-0">
+            <a
+              href={value}
+              target="_blank"
+              rel="noreferrer"
+              className="h-8 w-8 inline-flex items-center justify-center rounded-md text-muted-foreground hover:text-primary hover:bg-gray-200/60 transition-colors"
+              title="Open in new tab"
+            >
+              <ExternalLink className="h-4 w-4" />
+            </a>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={handleRemove}
+              className="h-8 w-8 p-0 text-muted-foreground hover:text-destructive shrink-0"
+              title="Remove image"
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       ) : (
         <div
@@ -135,13 +163,12 @@ export function ImageUpload({
             accept="image/*"
             onChange={handleFileChange}
             className="hidden"
-            disabled={isUploading}
           />
           {isUploading ? (
-            <div className="flex flex-col items-center gap-2 py-2">
+            <div className="flex flex-col items-center gap-1.5 py-2">
               <Loader2 className="h-6 w-6 text-primary animate-spin" />
-              <div className="text-xs font-medium text-gray-600">
-                Converting to AVIF & uploading to Neon Storage...
+              <div className="text-xs font-medium text-gray-700">
+                Optimizing to AVIF & Uploading to Neon...
               </div>
             </div>
           ) : (
@@ -149,10 +176,10 @@ export function ImageUpload({
               <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center text-primary">
                 <Upload className="h-4 w-4" />
               </div>
-              <div className="text-xs font-semibold text-gray-800">
-                Click to upload image
+              <div className="text-xs font-medium text-gray-800">
+                Click to choose image
               </div>
-              <div className="text-[11px] text-gray-500">
+              <div className="text-[10px] text-muted-foreground">
                 PNG, JPG, WebP (Automatically converted to AVIF)
               </div>
             </>
@@ -160,9 +187,9 @@ export function ImageUpload({
         </div>
       )}
 
-      {(error || uploadError) && (
+      {error && (
         <p className="text-xs text-destructive">
-          {error || uploadError}
+          {error}
         </p>
       )}
     </div>
