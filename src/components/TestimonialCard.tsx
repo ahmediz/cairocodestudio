@@ -30,9 +30,9 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
       </p>
 
       <div className="flex flex-col mt-auto pt-4 border-t border-gray-50">
-        <h4 className="font-bold text-gray-900 font-antonio text-base">
+        <h3 className="font-bold text-gray-900 font-antonio text-base">
           {testimonial.name}
-        </h4>
+        </h3>
         <span className="text-xs text-gray-500 font-medium">
           {testimonial.company}
         </span>

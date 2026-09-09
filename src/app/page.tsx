@@ -79,7 +79,7 @@ export default async function HomePage() {
                   className="text-gray-900 font-semibold text-base gap-2 px-0 hover:text-primary transition-colors"
                 >
                   <Link href="/about">
-                    Learn More <ChevronRight className="h-4 w-4" />
+                    Learn More About Us <ChevronRight className="h-4 w-4" />
                   </Link>
                 </Button>
               </div>

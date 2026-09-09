@@ -23,7 +23,7 @@ export function CtaSection({
           {title}
         </h2>
         {subtitle && (
-          <p className="text-white/90 text-base md:text-lg max-w-2xl mx-auto">
+          <p className="text-white text-base md:text-lg max-w-2xl mx-auto">
             {subtitle}
           </p>
         )}
