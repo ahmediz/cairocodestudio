@@ -92,6 +92,8 @@ export default async function HomePage() {
                 height={448}
                 alt="Cairo Code Studio Hero Image"
                 priority
+                fetchPriority="high"
+                sizes="(max-width: 768px) 100vw, 672px"
                 className="w-full h-auto object-cover"
               />
             </figure>
