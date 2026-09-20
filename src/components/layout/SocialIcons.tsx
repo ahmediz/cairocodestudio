@@ -23,6 +23,11 @@ export interface SocialIconsProps {
   socials?: SocialLinks | null;
 }
 
+const isSafeUrl = (url?: string | null): boolean => {
+  if (!url) return false;
+  return /^https?:\/\//i.test(url.trim());
+};
+
 export function SocialIcons({ className = "", socials }: SocialIconsProps) {
   // Built-in defaults if no socials provided at all
   const items: {
@@ -32,29 +37,29 @@ export function SocialIcons({ className = "", socials }: SocialIconsProps) {
   }[] = [];
 
   if (socials) {
-    if (socials.facebook) {
+    if (socials.facebook && isSafeUrl(socials.facebook)) {
       items.push({ name: "Facebook", href: socials.facebook, icon: Facebook });
     }
-    if (socials.instagram) {
+    if (socials.instagram && isSafeUrl(socials.instagram)) {
       items.push({
         name: "Instagram",
         href: socials.instagram,
         icon: Instagram,
       });
     }
-    if (socials.linkedin) {
+    if (socials.linkedin && isSafeUrl(socials.linkedin)) {
       items.push({ name: "LinkedIn", href: socials.linkedin, icon: Linkedin });
     }
-    if (socials.twitter) {
+    if (socials.twitter && isSafeUrl(socials.twitter)) {
       items.push({ name: "X (Twitter)", href: socials.twitter, icon: Twitter });
     }
-    if (socials.github) {
+    if (socials.github && isSafeUrl(socials.github)) {
       items.push({ name: "GitHub", href: socials.github, icon: Github });
     }
-    if (socials.behance) {
+    if (socials.behance && isSafeUrl(socials.behance)) {
       items.push({ name: "Behance", href: socials.behance, icon: Globe });
     }
-    if (socials.dribbble) {
+    if (socials.dribbble && isSafeUrl(socials.dribbble)) {
       items.push({ name: "Dribbble", href: socials.dribbble, icon: Globe });
     }
   } else {

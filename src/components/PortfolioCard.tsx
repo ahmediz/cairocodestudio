@@ -7,6 +7,11 @@ interface PortfolioCardProps {
   project: ProjectOutputDTO;
 }
 
+const isSafeUrl = (url?: string | null): boolean => {
+  if (!url) return false;
+  return /^https?:\/\//i.test(url.trim());
+};
+
 export function PortfolioCard({ project }: PortfolioCardProps) {
 
   return (
@@ -29,7 +34,7 @@ export function PortfolioCard({ project }: PortfolioCardProps) {
       </p>
 
       <div className="mt-auto pt-2 flex items-center">
-        {project.link ? (
+        {project.link && isSafeUrl(project.link) ? (
           <Button
             asChild
             variant="secondary"
