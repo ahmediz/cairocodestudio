@@ -1,19 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
 import { revalidateTag, revalidatePath } from "next/cache";
+import crypto from "crypto";
+
+function isValidRevalidationSecret(providedSecret: string | null): boolean {
+  const expectedSecret = process.env.REVALIDATION_SECRET?.replace(/^["']|["']$/g, "").trim();
+  if (!expectedSecret || !providedSecret) {
+    return false;
+  }
+
+  const cleanProvided = providedSecret.replace(/^["']|["']$/g, "").trim();
+  const providedBuffer = Buffer.from(cleanProvided);
+  const expectedBuffer = Buffer.from(expectedSecret);
+
+  if (providedBuffer.length !== expectedBuffer.length) {
+    return false;
+  }
+
+  return crypto.timingSafeEqual(providedBuffer, expectedBuffer);
+}
 
 export async function POST(request: NextRequest) {
   try {
-    const rawSecret =
-      request.headers.get("x-revalidate-secret") ||
-      request.nextUrl.searchParams.get("secret");
-    const secret = rawSecret ? rawSecret.replace(/^["']|["']$/g, "").trim() : "";
+    const secret = request.headers.get("x-revalidate-secret");
 
-    const rawExpected =
-      process.env.REVALIDATION_SECRET ||
-      "5b18345512118c9686bd6367cfcde95d0b3ad4c7699279b14ac3ae5c719751c3";
-    const expectedSecret = rawExpected.replace(/^["']|["']$/g, "").trim();
-
-    if (!secret || secret !== expectedSecret) {
+    if (!isValidRevalidationSecret(secret)) {
       return NextResponse.json(
         { error: "Invalid or missing revalidation secret token" },
         { status: 401 }
@@ -69,17 +79,11 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
-  const rawSecret = request.nextUrl.searchParams.get("secret");
-  const secret = rawSecret ? rawSecret.replace(/^["']|["']$/g, "").trim() : "";
+  const secret = request.headers.get("x-revalidate-secret");
   const tag = request.nextUrl.searchParams.get("tag");
   const path = request.nextUrl.searchParams.get("path");
 
-  const rawExpected =
-    process.env.REVALIDATION_SECRET ||
-    "5b18345512118c9686bd6367cfcde95d0b3ad4c7699279b14ac3ae5c719751c3";
-  const expectedSecret = rawExpected.replace(/^["']|["']$/g, "").trim();
-
-  if (!secret || secret !== expectedSecret) {
+  if (!isValidRevalidationSecret(secret)) {
     return NextResponse.json(
       { error: "Invalid or missing revalidation secret token" },
       { status: 401 }
