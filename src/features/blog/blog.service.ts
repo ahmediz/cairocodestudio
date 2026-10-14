@@ -81,3 +81,17 @@ export async function getBlogCategories(): Promise<BlogCategoryOutputDTO[]> {
     return [];
   }
 }
+
+/** Fetches every active post across pages (API max limit is 50). */
+export async function getAllActiveBlogPosts(): Promise<BlogPostOutputDTO[]> {
+  const limit = 50;
+  const firstPage = await getBlogPostsPage({ page: 1, limit });
+  const posts = [...firstPage.items];
+
+  for (let page = 2; page <= firstPage.totalPages; page++) {
+    const nextPage = await getBlogPostsPage({ page, limit });
+    posts.push(...nextPage.items);
+  }
+
+  return posts;
+}
