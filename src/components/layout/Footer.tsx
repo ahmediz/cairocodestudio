@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { SocialIcons, SocialLinks } from './SocialIcons';
 import { CtaSection } from '../CtaSection';
+import { CookieSettingsButton } from '@/components/consent/CookieSettingsButton';
 
 interface FooterProps {
   socials?: SocialLinks | null;
@@ -16,6 +17,12 @@ export function Footer({ socials }: FooterProps) {
     { label: 'Portfolio', href: '/portfolio' },
     { label: 'Blog', href: '/blog' },
     { label: 'Contact', href: '/contact' },
+  ];
+
+  const legalLinks = [
+    { label: 'Privacy Policy', href: '/privacy-policy' },
+    { label: 'Cookie Policy', href: '/cookie-policy' },
+    { label: 'Terms & Conditions', href: '/terms-and-conditions' },
   ];
 
   return (
@@ -50,7 +57,22 @@ export function Footer({ socials }: FooterProps) {
             <SocialIcons socials={socials} className="[&_a]:text-gray-400 [&_a:hover]:text-primary [&_a:hover]:bg-white/5" />
           </div>
 
-          <div className="mt-8 pt-8 border-t border-white/10 text-center text-xs text-gray-400">
+          <div className="mt-8 pt-8 border-t border-white/10 flex flex-col items-center gap-4 text-xs text-gray-400">
+            <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+              {legalLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="hover:text-primary transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <CookieSettingsButton className="hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark-bg rounded-sm" />
+              </li>
+            </ul>
             <p>
               © {new Date().getFullYear()} Cairo Code Studio. All rights reserved.
             </p>

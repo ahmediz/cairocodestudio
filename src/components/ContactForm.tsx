@@ -8,7 +8,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { submitContact } from '@/features/inquiries/inquiries.service';
+import { getRecaptchaToken } from '@/lib/recaptcha';
 import { CheckCircle2, AlertCircle } from 'lucide-react';
+
+const CONTACT_RECAPTCHA_ACTION = 'contact_submit';
 
 const contactFormSchema = z.object({
   name: z.string().min(2, 'Name is required'),
@@ -51,9 +54,12 @@ export function ContactForm({
     setStatusMessage(null);
 
     try {
+      const recaptchaToken = await getRecaptchaToken(CONTACT_RECAPTCHA_ACTION);
+
       const response = await submitContact({
         ...values,
         type,
+        recaptchaToken,
       });
 
       setStatusMessage({
@@ -64,10 +70,14 @@ export function ContactForm({
       if (onSuccess) {
         setTimeout(onSuccess, 1500);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'Something went wrong. Please try again.';
       setStatusMessage({
         type: 'error',
-        text: error.message || 'Something went wrong. Please try again.',
+        text: message,
       });
     } finally {
       setIsSubmitting(false);
@@ -148,6 +158,28 @@ export function ContactForm({
           <p className="text-xs text-destructive">{errors.message.message}</p>
         )}
       </div>
+
+      <p className="text-xs text-gray-500 leading-relaxed">
+        This site is protected by reCAPTCHA and the Google{' '}
+        <a
+          href="https://policies.google.com/privacy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline underline-offset-2 hover:text-primary"
+        >
+          Privacy Policy
+        </a>{' '}
+        and{' '}
+        <a
+          href="https://policies.google.com/terms"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline underline-offset-2 hover:text-primary"
+        >
+          Terms of Service
+        </a>{' '}
+        apply.
+      </p>
 
       <Button
         type="submit"

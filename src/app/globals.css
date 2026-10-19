@@ -109,3 +109,8 @@ h5 {
 .blog-content pre code {
   @apply bg-transparent p-0 text-inherit;
 }
+
+/* Badge hidden; required Google Privacy Policy / Terms notice is on the contact form */
+.grecaptcha-badge {
+  visibility: hidden;
+}

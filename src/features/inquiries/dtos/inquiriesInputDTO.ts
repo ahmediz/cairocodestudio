@@ -5,6 +5,7 @@ export interface ContactSubmissionInputDTO {
   subject: string;
   message: string;
   type?: 'contact' | 'lets_talk';
+  recaptchaToken?: string;
 }
 
 export interface ContactSubmissionResponseDTO {

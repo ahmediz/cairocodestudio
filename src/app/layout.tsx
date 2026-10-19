@@ -3,6 +3,8 @@ import { Antonio, Inter } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { ConsentedAnalytics } from '@/components/consent/ConsentedAnalytics';
+import { ConsentProvider } from '@/context/ConsentContext';
 import { ContactModalProvider } from '@/context/ContactModalContext';
 import { getSettings } from '@/features/settings/settings.service';
 
@@ -71,11 +73,14 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${antonio.variable} ${inter.variable}`}>
       <body className="flex min-h-screen flex-col font-inter">
-        <ContactModalProvider>
-          <Header socials={socials} />
-          <main className="flex-1">{children}</main>
-          <Footer socials={socials} />
-        </ContactModalProvider>
+        <ConsentProvider>
+          <ContactModalProvider>
+            <Header socials={socials} />
+            <main className="flex-1">{children}</main>
+            <Footer socials={socials} />
+          </ContactModalProvider>
+          <ConsentedAnalytics />
+        </ConsentProvider>
       </body>
     </html>
   );
