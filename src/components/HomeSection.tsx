@@ -2,6 +2,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 
 interface HomeSectionProps {
+  id?: string;
   title: string;
   subtitle?: string;
   isCenter?: boolean;
@@ -11,6 +12,7 @@ interface HomeSectionProps {
 }
 
 export function HomeSection({
+  id,
   title,
   subtitle,
   isCenter = false,
@@ -19,7 +21,7 @@ export function HomeSection({
   children,
 }: HomeSectionProps) {
   return (
-    <section className={cn('py-12 md:py-20', className)}>
+    <section id={id} className={cn('py-12 md:py-20', className)}>
       <div
         className={cn(
           'max-w-7xl mx-auto px-4 flex flex-col items-center gap-8 md:gap-12',

@@ -1,6 +1,9 @@
 import { fetchServer } from '@/lib/api';
 import {
+  ServiceBenefit,
+  ServiceFeature,
   ServiceOutputDTO,
+  ServiceStat,
   ServiceStep,
   ServicesPageDTO,
 } from './dtos/servicesOutputDTO';
@@ -13,6 +16,10 @@ const emptyPage = (page: number, limit: number): ServicesPageDTO => ({
   totalPages: 1,
 });
 
+function asString(value: unknown): string {
+  return typeof value === 'string' ? value : '';
+}
+
 function asStringList(value: unknown): string[] {
   if (!Array.isArray(value)) return [];
   return value.filter(
@@ -20,23 +27,76 @@ function asStringList(value: unknown): string[] {
   );
 }
 
-function asSteps(value: unknown): ServiceStep[] {
+function asRecordArray(value: unknown): Record<string, unknown>[] {
   if (!Array.isArray(value)) return [];
-  return value.flatMap((item) => {
-    if (!item || typeof item !== 'object') return [];
-    const record = item as Record<string, unknown>;
-    if (typeof record.title !== 'string' || typeof record.description !== 'string') {
-      return [];
-    }
-    return [{ title: record.title, description: record.description }];
+  return value.filter(
+    (item): item is Record<string, unknown> =>
+      Boolean(item) && typeof item === 'object'
+  );
+}
+
+function asBenefits(value: unknown): ServiceBenefit[] {
+  return asRecordArray(value).flatMap((item) => {
+    const title = asString(item.title);
+    const description = asString(item.description);
+    const image = asString(item.image);
+    if (!title || !description) return [];
+    return [{ title, description, image }];
+  });
+}
+
+function asFeatures(value: unknown): ServiceFeature[] {
+  return asRecordArray(value).flatMap((item) => {
+    const title = asString(item.title);
+    const description = asString(item.description);
+    const image = asString(item.image);
+    if (!title || !description) return [];
+    return [
+      {
+        title,
+        description,
+        image,
+        bullets: asStringList(item.bullets),
+      },
+    ];
+  });
+}
+
+function asSteps(value: unknown): ServiceStep[] {
+  return asRecordArray(value).flatMap((item) => {
+    const title = asString(item.title);
+    const description = asString(item.description);
+    const image = asString(item.image);
+    if (!title || !description) return [];
+    return [{ title, description, image }];
+  });
+}
+
+function asStats(value: unknown): ServiceStat[] {
+  return asRecordArray(value).flatMap((item) => {
+    const statValue = asString(item.value);
+    const label = asString(item.label);
+    if (!statValue || !label) return [];
+    return [{ value: statValue, label }];
   });
 }
 
 function normalizeService(service: ServiceOutputDTO): ServiceOutputDTO {
   return {
     ...service,
-    includedItems: asStringList(service.includedItems),
+    heroHeadline: service.heroHeadline || service.title,
+    heroSubtitle: service.heroSubtitle || service.description,
+    heroImage: service.heroImage || '',
+    benefitsTitle: service.benefitsTitle || '',
+    benefitsIntro: service.benefitsIntro || '',
+    benefits: asBenefits(service.benefits),
+    features: asFeatures(service.features),
+    processTitle: service.processTitle || 'How it works',
+    processIntro: service.processIntro || '',
     howItWorks: asSteps(service.howItWorks),
+    statsTitle: service.statsTitle || '',
+    statsIntro: service.statsIntro || '',
+    stats: asStats(service.stats),
   };
 }
 
