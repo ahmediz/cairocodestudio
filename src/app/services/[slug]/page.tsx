@@ -6,6 +6,8 @@ import { notFound } from 'next/navigation';
 import { ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { HomeSection } from '@/components/HomeSection';
+import { ServiceBenefitsCarousel } from '@/components/ServiceBenefitsCarousel';
+import { ServiceProcessTimeline } from '@/components/ServiceProcessTimeline';
 import { ServiceTalkButton } from '@/components/ServiceTalkButton';
 import { TestimonialCard } from '@/components/TestimonialCard';
 import { getServiceBySlug } from '@/features/services/services.service';
@@ -106,31 +108,16 @@ export default async function ServicePage({ params }: ServicePageProps) {
       </section>
 
       {service.benefits.length > 0 && (
-        <HomeSection
+        <section
           id="why-it-matters"
-          title={service.benefitsTitle}
-          subtitle={service.benefitsIntro}
-          className="bg-gray-50 border-y border-gray-100"
+          className="py-12 md:py-20 bg-gray-50 border-y border-gray-100"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-            {service.benefits.map((benefit) => (
-              <article
-                key={benefit.title}
-                className="flex flex-col overflow-hidden rounded-2xl border bg-white shadow-sm"
-              >
-                <SectionImage src={benefit.image} alt={benefit.title} />
-                <div className="space-y-2 p-6">
-                  <h3 className="text-xl font-bold font-antonio text-gray-900">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    {benefit.description}
-                  </p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </HomeSection>
+          <ServiceBenefitsCarousel
+            title={service.benefitsTitle}
+            subtitle={service.benefitsIntro}
+            benefits={service.benefits}
+          />
+        </section>
       )}
 
       {service.features.length > 0 && (
@@ -171,27 +158,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
           subtitle={service.processIntro}
           className="bg-gray-50 border-y border-gray-100"
         >
-          <ol className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
-            {service.howItWorks.map((step, index) => (
-              <li
-                key={step.title}
-                className="flex flex-col overflow-hidden rounded-2xl border bg-white shadow-sm"
-              >
-                <SectionImage src={step.image} alt={step.title} />
-                <div className="space-y-3 p-6">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
-                    {index + 1}
-                  </span>
-                  <h3 className="text-xl font-bold font-antonio text-gray-900">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
+          <ServiceProcessTimeline steps={service.howItWorks} />
         </HomeSection>
       )}
 

@@ -25,7 +25,7 @@ export function ContactFormModal({
 }: ContactFormModalProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[580px]">
+      <DialogContent className="sm:max-w-[580px] max-h-[min(90dvh,calc(100svh-2rem))] overflow-y-auto overscroll-contain">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           {description && <DialogDescription>{description}</DialogDescription>}

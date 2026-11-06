@@ -43,6 +43,15 @@ const config: Config = {
         antonio: ['var(--font-antonio)', 'sans-serif'],
         inter: ['var(--font-inter)', 'sans-serif'],
       },
+      keyframes: {
+        processProgress: {
+          from: { transform: 'scaleX(0)' },
+          to: { transform: 'scaleX(1)' },
+        },
+      },
+      animation: {
+        'process-progress': 'processProgress 5s linear forwards',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],
