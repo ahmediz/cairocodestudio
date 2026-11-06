@@ -3,6 +3,7 @@ import {
   getAllActiveBlogPosts,
   getBlogCategories,
 } from '@/features/blog/blog.service';
+import { getAllActiveServices } from '@/features/services/services.service';
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, '') ||
@@ -68,9 +69,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  const [posts, categories] = await Promise.all([
+  const [posts, categories, services] = await Promise.all([
     getAllActiveBlogPosts(),
     getBlogCategories(),
+    getAllActiveServices(),
   ]);
 
   const postRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
@@ -87,5 +89,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...postRoutes, ...categoryRoutes];
+  const serviceRoutes: MetadataRoute.Sitemap = services.map((service) => ({
+    url: `${SITE_URL}/services/${service.slug}`,
+    lastModified: new Date(service.updatedAt),
+    changeFrequency: 'monthly',
+    priority: 0.8,
+  }));
+
+  return [...staticRoutes, ...postRoutes, ...categoryRoutes, ...serviceRoutes];
 }

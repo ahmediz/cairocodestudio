@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+import Link from 'next/link';
 import {
   Palette,
   Globe,
@@ -7,30 +8,36 @@ import {
   PenTool,
   Headphones,
   LucideIcon,
-} from "lucide-react";
+} from 'lucide-react';
 
-const iconMap: Record<string, LucideIcon> = {
-  "pi pi-palette": Palette,
-  "pi pi-globe": Globe,
-  "pi pi-mobile": Smartphone,
-  "pi pi-shopping-cart": ShoppingCart,
-  "pi pi-pencil": PenTool,
-  "pi pi-headphones": Headphones,
+export const iconMap: Record<string, LucideIcon> = {
+  'pi pi-palette': Palette,
+  'pi pi-globe': Globe,
+  'pi pi-mobile': Smartphone,
+  'pi pi-shopping-cart': ShoppingCart,
+  'pi pi-pencil': PenTool,
+  'pi pi-headphones': Headphones,
 };
 
+export interface ServiceCardData {
+  slug: string;
+  title: string;
+  description: string;
+  icon: string;
+}
+
 interface ServiceCardProps {
-  service: {
-    title: string;
-    description: string;
-    icon: string;
-  };
+  service: ServiceCardData;
 }
 
 export function ServiceCard({ service }: ServiceCardProps) {
   const IconComponent = iconMap[service.icon] || Globe;
 
   return (
-    <div className="flex items-start gap-4 border  rounded-2xl p-6 h-full bg-white shadow-sm hover:shadow-md transition-shadow">
+    <Link
+      href={`/services/${service.slug}`}
+      className="flex items-start gap-4 border rounded-2xl p-6 h-full bg-white shadow-sm hover:shadow-md transition-shadow"
+    >
       <div className="w-12 h-12 flex items-center justify-center bg-primary text-white rounded-2xl shrink-0 shadow-sm">
         <IconComponent className="h-6 w-6" />
       </div>
@@ -42,6 +49,6 @@ export function ServiceCard({ service }: ServiceCardProps) {
           {service.description}
         </p>
       </div>
-    </div>
+    </Link>
   );
 }

@@ -84,7 +84,7 @@ export function Header({ socials }: HeaderProps) {
           <div className="hidden md:flex items-center gap-5">
             <SocialIcons socials={socials} />
             <Button onClick={openModal} className="font-semibold">
-              Let's Talk
+              Let&apos;s Talk
             </Button>
           </div>
         </div>
@@ -155,7 +155,7 @@ export function Header({ socials }: HeaderProps) {
             }}
             className="w-full h-12 text-base font-semibold"
           >
-            Let's Talk
+            Let&apos;s Talk
           </Button>
         </div>
       </div>

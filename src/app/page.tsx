@@ -10,51 +10,17 @@ import { TestimonialCard } from '@/components/TestimonialCard';
 import { ClientsScroll } from '@/components/ClientsScroll';
 import { getClients } from '@/features/clients/clients.service';
 import { getProjects } from '@/features/projects/projects.service';
+import { getServices } from '@/features/services/services.service';
 import { getTestimonials } from '@/features/testimonials/testimonials.service';
 
 export const revalidate = 60; // ISR revalidation every 60 seconds
 
-const servicesData = [
-  {
-    title: 'UI/UX Design',
-    description:
-      'Modern, user-centered interfaces, prototypes, design systems, and complete UX flows.',
-    icon: 'pi pi-palette',
-  },
-  {
-    title: 'Web Development',
-    description:
-      'Fast, secure, scalable websites with clean engineering and long-term reliability.',
-    icon: 'pi pi-globe',
-  },
-  {
-    title: 'Mobile App Development',
-    description: 'iOS & Android apps built for performance and scale.',
-    icon: 'pi pi-mobile',
-  },
-  {
-    title: 'E-Commerce Solutions',
-    description:
-      'Online stores with smooth checkout, product pages, and secure payment integrations.',
-    icon: 'pi pi-shopping-cart',
-  },
-  {
-    title: 'Brand Identity',
-    description: 'Logo, color palette, typography, and full brand systems.',
-    icon: 'pi pi-pencil',
-  },
-  {
-    title: 'Care & Support Plans',
-    description: 'Maintenance, updates, monitoring, backups, and support.',
-    icon: 'pi pi-headphones',
-  },
-];
-
 export default async function HomePage() {
-  const [clients, projects, testimonials] = await Promise.all([
+  const [clients, projects, testimonials, services] = await Promise.all([
     getClients(),
     getProjects(true),
     getTestimonials(),
+    getServices(),
   ]);
 
   return (
@@ -104,7 +70,7 @@ export default async function HomePage() {
             <h2 className="text-xl md:text-2xl font-bold font-antonio shrink-0 md:max-w-xs text-gray-900">
               Clients{' '}
               <Heart className="inline h-5 w-5 fill-primary text-primary align-middle mx-1" />{' '}
-              we're proud we've worked with
+              we&apos;re proud we&apos;ve worked with
             </h2>
             <div className="flex-1 md:border-s md:border-gray-200 md:ps-8 min-w-0">
               <ClientsScroll clients={clients} />
@@ -116,8 +82,8 @@ export default async function HomePage() {
       {/* Services Section */}
       <HomeSection title="Our Services">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-          {servicesData.map((service) => (
-            <ServiceCard key={service.title} service={service} />
+          {services.items.map((service) => (
+            <ServiceCard key={service.id} service={service} />
           ))}
         </div>
         <div className="flex justify-center mt-2">

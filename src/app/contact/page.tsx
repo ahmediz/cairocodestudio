@@ -23,7 +23,7 @@ export default async function ContactPage() {
             Contact Us
           </h1>
           <p className="text-gray-600 text-lg">
-            Let's discuss how we can help elevate your digital presence. Reach
+            Let&apos;s discuss how we can help elevate your digital presence. Reach
             out to us directly or fill out the form below.
           </p>
         </div>

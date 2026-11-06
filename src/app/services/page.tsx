@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { ServiceCard } from '@/components/ServiceCard';
+import { getServices } from '@/features/services/services.service';
 
 export const metadata: Metadata = {
   title: 'Web & App Development Services | Cairo Code Studio',
@@ -8,43 +9,11 @@ export const metadata: Metadata = {
     'Explore our services in web design, app development, and UI/UX. We deliver scalable, high-quality digital solutions. Request your custom quote today.',
 };
 
-const allServices = [
-  {
-    title: 'UI/UX Design',
-    description:
-      'Modern, user-centered interfaces, prototypes, design systems, and complete UX flows.',
-    icon: 'pi pi-palette',
-  },
-  {
-    title: 'Web Development',
-    description:
-      'Fast, secure, scalable websites with clean engineering and long-term reliability.',
-    icon: 'pi pi-globe',
-  },
-  {
-    title: 'Mobile App Development',
-    description: 'iOS & Android apps built for performance and scale.',
-    icon: 'pi pi-mobile',
-  },
-  {
-    title: 'E-Commerce Solutions',
-    description:
-      'Online stores with smooth checkout, product pages, and secure payment integrations.',
-    icon: 'pi pi-shopping-cart',
-  },
-  {
-    title: 'Brand Identity',
-    description: 'Logo, color palette, typography, and full brand systems.',
-    icon: 'pi pi-pencil',
-  },
-  {
-    title: 'Care & Support Plans',
-    description: 'Maintenance, updates, monitoring, backups, and support.',
-    icon: 'pi pi-headphones',
-  },
-];
+export const revalidate = 60;
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const { items } = await getServices();
+
   return (
     <div className="py-12 md:py-20">
       <div className="max-w-7xl mx-auto px-4 space-y-12">
@@ -59,8 +28,8 @@ export default function ServicesPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {allServices.map((service) => (
-            <ServiceCard key={service.title} service={service} />
+          {items.map((service) => (
+            <ServiceCard key={service.id} service={service} />
           ))}
         </div>
       </div>

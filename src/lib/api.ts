@@ -13,7 +13,7 @@ export async function fetchServer<T>(
   const formattedEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
   const url = `${API_BASE_URL}${formattedEndpoint}`;
 
-  const nextOptions: any = {};
+  const nextOptions: { revalidate?: number | false; tags?: string[] } = {};
   if (revalidate !== undefined) {
     nextOptions.revalidate = revalidate;
   }
