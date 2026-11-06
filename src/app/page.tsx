@@ -115,7 +115,7 @@ export default async function HomePage() {
             variant="customText"
             className="text-gray-900 font-semibold gap-2 hover:text-primary transition-colors"
           >
-            <Link href="/portfolio">
+            <Link href="/projects">
               Check Our Portfolio <ChevronRight className="h-4 w-4" />
             </Link>
           </Button>

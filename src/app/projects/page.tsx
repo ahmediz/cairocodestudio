@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export const revalidate = 60; // ISR cache revalidation
 
-export default async function PortfolioPage() {
+export default async function ProjectsPage() {
   const projects = await getProjects(false);
 
   return (

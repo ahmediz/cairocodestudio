@@ -3,6 +3,7 @@ import {
   getAllActiveBlogPosts,
   getBlogCategories,
 } from '@/features/blog/blog.service';
+import { getProjects } from '@/features/projects/projects.service';
 import { getAllActiveServices } from '@/features/services/services.service';
 
 const SITE_URL =
@@ -26,7 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     {
-      url: `${SITE_URL}/portfolio`,
+      url: `${SITE_URL}/projects`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
@@ -69,10 +70,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  const [posts, categories, services] = await Promise.all([
+  const [posts, categories, services, projects] = await Promise.all([
     getAllActiveBlogPosts(),
     getBlogCategories(),
     getAllActiveServices(),
+    getProjects(false),
   ]);
 
   const postRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
@@ -96,5 +98,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...postRoutes, ...categoryRoutes, ...serviceRoutes];
+  const projectRoutes: MetadataRoute.Sitemap = projects.map((project) => ({
+    url: `${SITE_URL}/projects/${project.slug}`,
+    lastModified: project.updatedAt ? new Date(project.updatedAt) : new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.8,
+  }));
+
+  return [
+    ...staticRoutes,
+    ...postRoutes,
+    ...categoryRoutes,
+    ...serviceRoutes,
+    ...projectRoutes,
+  ];
 }
