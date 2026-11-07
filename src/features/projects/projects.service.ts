@@ -101,3 +101,16 @@ export async function getRelatedProjects(
   const projects = await getProjects(false);
   return projects.filter((project) => project.slug !== slug).slice(0, limit);
 }
+
+function projectCreatedAtTime(project: ProjectOutputDTO): number {
+  if (!project.createdAt) return 0;
+  const time = new Date(project.createdAt).getTime();
+  return Number.isNaN(time) ? 0 : time;
+}
+
+export async function getRecentProjects(limit = 3): Promise<ProjectOutputDTO[]> {
+  const projects = await getProjects(false);
+  return [...projects]
+    .sort((a, b) => projectCreatedAtTime(b) - projectCreatedAtTime(a))
+    .slice(0, limit);
+}
