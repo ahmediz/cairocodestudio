@@ -9,6 +9,7 @@ import { HomeSection } from '@/components/HomeSection';
 import { ServiceBenefitsCarousel } from '@/components/ServiceBenefitsCarousel';
 import { ServiceProcessTimeline } from '@/components/ServiceProcessTimeline';
 import { ServiceTalkButton } from '@/components/ServiceTalkButton';
+import { ServiceCard } from '@/components/ServiceCard';
 import { PortfolioCard } from '@/components/PortfolioCard';
 import { TestimonialCard } from '@/components/TestimonialCard';
 import { getRecentProjects } from '@/features/projects/projects.service';
@@ -166,6 +167,26 @@ export default async function ServicePage({ params }: ServicePageProps) {
         </HomeSection>
       )}
 
+      {service.whatsIncluded.length > 0 && (
+        <HomeSection title="What's Included">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+            {service.whatsIncluded.map((item, index) => (
+              <div
+                key={`${item.title}-${index}`}
+                className="rounded-2xl border bg-white p-8 text-center shadow-sm"
+              >
+                <h3 className="text-lg md:text-xl font-extrabold font-antonio text-gray-900">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-sm font-medium text-gray-600 leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </HomeSection>
+      )}
+
       {service.stats.length > 0 && (
         <HomeSection title={service.statsTitle} subtitle={service.statsIntro}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
@@ -179,6 +200,19 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 </p>
                 <p className="mt-2 text-sm font-medium text-gray-600">{stat.label}</p>
               </div>
+            ))}
+          </div>
+        </HomeSection>
+      )}
+
+      {service.relatedServices.length > 0 && (
+        <HomeSection
+          title="Related services"
+          className="bg-gray-50 border-y border-gray-100"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+            {service.relatedServices.map((related) => (
+              <ServiceCard key={related.id} service={related} />
             ))}
           </div>
         </HomeSection>

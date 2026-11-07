@@ -2,6 +2,8 @@ import { fetchServer } from '@/lib/api';
 import {
   ServiceBenefit,
   ServiceFeature,
+  ServiceIncludedItem,
+  ServiceRelatedSummary,
   ServiceOutputDTO,
   ServiceStat,
   ServiceStep,
@@ -62,13 +64,25 @@ function asFeatures(value: unknown): ServiceFeature[] {
   });
 }
 
+const DEFAULT_STEP_ICONS = [
+  'search',
+  'waypoints',
+  'pencil',
+  'layers',
+] as const;
+
 function asSteps(value: unknown): ServiceStep[] {
-  return asRecordArray(value).flatMap((item) => {
+  return asRecordArray(value).flatMap((item, index) => {
     const title = asString(item.title);
     const description = asString(item.description);
     const image = asString(item.image);
+    const iconRaw = asString(item.icon);
     if (!title || !description) return [];
-    return [{ title, description, image }];
+    const icon =
+      iconRaw ||
+      DEFAULT_STEP_ICONS[index % DEFAULT_STEP_ICONS.length] ||
+      'search';
+    return [{ title, description, image, icon }];
   });
 }
 
@@ -78,6 +92,27 @@ function asStats(value: unknown): ServiceStat[] {
     const label = asString(item.label);
     if (!statValue || !label) return [];
     return [{ value: statValue, label }];
+  });
+}
+
+function asWhatsIncluded(value: unknown): ServiceIncludedItem[] {
+  return asRecordArray(value).flatMap((item) => {
+    const title = asString(item.title);
+    const description = asString(item.description);
+    if (!title || !description) return [];
+    return [{ title, description }];
+  });
+}
+
+function asRelatedServices(value: unknown): ServiceRelatedSummary[] {
+  return asRecordArray(value).flatMap((item) => {
+    const id = asString(item.id);
+    const slug = asString(item.slug);
+    const title = asString(item.title);
+    const description = asString(item.description);
+    const icon = asString(item.icon);
+    if (!id || !slug || !title || !description) return [];
+    return [{ id, slug, title, description, icon: icon || 'pi pi-globe' }];
   });
 }
 
@@ -94,6 +129,8 @@ function normalizeService(service: ServiceOutputDTO): ServiceOutputDTO {
     processTitle: service.processTitle || 'How it works',
     processIntro: service.processIntro || '',
     howItWorks: asSteps(service.howItWorks),
+    whatsIncluded: asWhatsIncluded(service.whatsIncluded),
+    relatedServices: asRelatedServices(service.relatedServices),
     statsTitle: service.statsTitle || '',
     statsIntro: service.statsIntro || '',
     stats: asStats(service.stats),

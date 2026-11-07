@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { ServiceStep } from '@/features/services/dtos/servicesOutputDTO';
+import { resolveProcessStepIcon } from '@/lib/serviceProcessStepIcons';
 
 const STEP_DURATION_MS = 5000;
 
@@ -74,44 +75,63 @@ export function ServiceProcessTimeline({ steps }: ServiceProcessTimelineProps) {
       >
         {steps.map((step, index) => {
           const isActive = index === active;
+          const StepIcon = resolveProcessStepIcon(step.icon, index);
           return (
             <button
-              key={step.title}
+              key={`${step.title}-${index}`}
               type="button"
               role="tab"
               aria-selected={isActive}
               onClick={() => setActive(index)}
-              className="relative flex flex-col justify-start text-left pb-4"
+              className="relative flex gap-4 pb-5 text-left"
             >
-              <p
+              <div
                 className={cn(
-                  'mb-1.5 text-sm font-semibold uppercase tracking-wide transition-colors',
-                  isActive ? 'text-primary' : 'text-gray-400'
+                  'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border transition-colors',
+                  isActive
+                    ? 'border-primary/30 bg-primary/10'
+                    : 'border-primary/15 bg-primary/5'
                 )}
+                aria-hidden
               >
-                {index + 1}. {step.title}
-              </p>
-              <p
-                className={cn(
-                  'text-sm leading-relaxed transition-colors',
-                  isActive ? 'text-gray-700' : 'text-gray-500'
-                )}
-              >
-                {step.description}
-              </p>
-              <span className="absolute right-0 bottom-0 left-0 h-0.5 bg-gray-200">
-                {isActive ? (
-                  <span
-                    key={active}
-                    className={cn(
-                      'block h-full origin-left bg-primary',
-                      reduceMotion
-                        ? 'w-full'
-                        : 'w-full animate-process-progress'
-                    )}
-                  />
-                ) : null}
-              </span>
+                <StepIcon
+                  className={cn(
+                    'h-5 w-5 stroke-[1.75]',
+                    isActive ? 'text-primary' : 'text-primary/70'
+                  )}
+                />
+              </div>
+              <div className="relative min-w-0 flex-1 pb-1">
+                <p
+                  className={cn(
+                    'mb-1.5 text-sm font-semibold uppercase tracking-wide transition-colors',
+                    isActive ? 'text-primary' : 'text-gray-400'
+                  )}
+                >
+                  {index + 1}. {step.title}
+                </p>
+                <p
+                  className={cn(
+                    'text-sm leading-relaxed transition-colors',
+                    isActive ? 'text-gray-700' : 'text-gray-500'
+                  )}
+                >
+                  {step.description}
+                </p>
+                <span className="absolute right-0 bottom-0 left-0 h-0.5 bg-gray-200">
+                  {isActive ? (
+                    <span
+                      key={active}
+                      className={cn(
+                        'block h-full origin-left bg-primary',
+                        reduceMotion
+                          ? 'w-full'
+                          : 'w-full animate-process-progress'
+                      )}
+                    />
+                  ) : null}
+                </span>
+              </div>
             </button>
           );
         })}

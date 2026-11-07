@@ -15,11 +15,25 @@ export interface ServiceStep {
   title: string;
   description: string;
   image: string;
+  icon: string;
 }
 
 export interface ServiceStat {
   value: string;
   label: string;
+}
+
+export interface ServiceIncludedItem {
+  title: string;
+  description: string;
+}
+
+export interface ServiceRelatedSummary {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  icon: string;
 }
 
 export interface ServiceOutputDTO {
@@ -38,6 +52,8 @@ export interface ServiceOutputDTO {
   processTitle: string;
   processIntro: string;
   howItWorks: ServiceStep[];
+  whatsIncluded: ServiceIncludedItem[];
+  relatedServices: ServiceRelatedSummary[];
   statsTitle: string;
   statsIntro: string;
   stats: ServiceStat[];
