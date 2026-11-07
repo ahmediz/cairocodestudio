@@ -1,13 +1,11 @@
 import React from 'react';
-import { Metadata } from 'next';
 import { PortfolioCard } from '@/components/PortfolioCard';
+import { buildStaticPageMetadata } from '@/features/page-seo/page-seo.service';
 import { getProjects } from '@/features/projects/projects.service';
 
-export const metadata: Metadata = {
-  title: 'Our Web & App Projects | Cairo Code Studio',
-  description:
-    'View our portfolio of websites and apps built for clients across industries. See the results we deliver. Explore our work and start your project today.',
-};
+export async function generateMetadata() {
+  return buildStaticPageMetadata('projects');
+}
 
 export const revalidate = 60; // ISR cache revalidation
 

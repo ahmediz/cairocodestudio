@@ -1,5 +1,5 @@
 import React from 'react';
-import { Metadata } from 'next';
+import { buildStaticPageMetadata } from '@/features/page-seo/page-seo.service';
 import {
   Smile,
   Briefcase,
@@ -9,11 +9,9 @@ import {
 } from 'lucide-react';
 import { TeamCard } from '@/components/TeamCard';
 
-export const metadata: Metadata = {
-  title: 'Who We Are & What We Do | Cairo Code Studio',
-  description:
-    'Discover our mission, values, and team behind every project. Learn how we create impactful digital solutions. Get to know us and connect today.',
-};
+export async function generateMetadata() {
+  return buildStaticPageMetadata('about');
+}
 
 const teamMembers = [
   {
@@ -30,7 +28,7 @@ const teamMembers = [
   {
     name: 'Samar Aly',
     title: 'PR & Marketing',
-    image: '/images/team/samar.png',
+    image: '/images/team/samar.jpeg',
     socials: [
       {
         name: 'LinkedIn',

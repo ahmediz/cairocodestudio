@@ -1,13 +1,11 @@
 import React from 'react';
-import { Metadata } from 'next';
 import { ServiceCard } from '@/components/ServiceCard';
+import { buildStaticPageMetadata } from '@/features/page-seo/page-seo.service';
 import { getServices } from '@/features/services/services.service';
 
-export const metadata: Metadata = {
-  title: 'Web & App Development Services | Cairo Code Studio',
-  description:
-    'Explore our services in web design, app development, and UI/UX. We deliver scalable, high-quality digital solutions. Request your custom quote today.',
-};
+export async function generateMetadata() {
+  return buildStaticPageMetadata('services');
+}
 
 export const revalidate = 60;
 

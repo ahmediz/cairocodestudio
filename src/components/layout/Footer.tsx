@@ -16,6 +16,7 @@ export function Footer({ socials }: FooterProps) {
     { label: 'Services', href: '/services' },
     { label: 'Portfolio', href: '/projects' },
     { label: 'Blog', href: '/blog' },
+    { label: 'FAQ', href: '/faq' },
     { label: 'Contact', href: '/contact' },
   ];
 

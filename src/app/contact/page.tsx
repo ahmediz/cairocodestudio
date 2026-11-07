@@ -1,14 +1,12 @@
 import React from 'react';
-import { Metadata } from 'next';
 import { Mail, Phone, MapPin, Clock, MessageSquare } from 'lucide-react';
 import { ContactForm } from '@/components/ContactForm';
+import { buildStaticPageMetadata } from '@/features/page-seo/page-seo.service';
 import { getSettings } from '@/features/settings/settings.service';
 
-export const metadata: Metadata = {
-  title: 'Get in Touch With Us | Cairo Code Studio',
-  description:
-    'Have a question or need a quote? Our team is ready to help you build your next digital product. Contact us today and let us bring your idea to life.',
-};
+export async function generateMetadata() {
+  return buildStaticPageMetadata('contact');
+}
 
 export const revalidate = 60; // ISR cache revalidation
 

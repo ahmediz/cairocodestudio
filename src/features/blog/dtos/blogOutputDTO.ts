@@ -26,6 +26,7 @@ export interface BlogPostOutputDTO {
   category: BlogPostCategoryRef;
   order: number;
   isActive: boolean;
+  showFaq: boolean;
   publishedAt: string | null;
   createdAt: string;
   updatedAt: string;

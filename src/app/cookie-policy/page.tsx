@@ -1,14 +1,12 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { LegalPageShell, LegalSection } from '@/components/legal/LegalPageShell';
 import { CONSENT_STORAGE_KEY, CONSENT_SCHEMA_VERSION } from '@/lib/consent/types';
+import { buildStaticPageMetadata } from '@/features/page-seo/page-seo.service';
 import { getPrivacyContactEmail, siteLegal } from '@/lib/site-legal';
 
-export const metadata: Metadata = {
-  title: 'Cookie Policy | Cairo Code Studio',
-  description:
-    'How Cairo Code Studio uses cookies and similar technologies, what we store, and how to manage your preferences.',
-};
+export async function generateMetadata() {
+  return buildStaticPageMetadata('cookie-policy');
+}
 
 const LAST_UPDATED = '19 October 2026';
 

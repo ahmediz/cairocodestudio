@@ -12,6 +12,12 @@ import { getClients } from '@/features/clients/clients.service';
 import { getProjects } from '@/features/projects/projects.service';
 import { getServices } from '@/features/services/services.service';
 import { getTestimonials } from '@/features/testimonials/testimonials.service';
+import { FaqSection } from '@/components/FaqSection';
+import { buildStaticPageMetadata } from '@/features/page-seo/page-seo.service';
+
+export async function generateMetadata() {
+  return buildStaticPageMetadata('home');
+}
 
 export const revalidate = 60; // ISR revalidation every 60 seconds
 
@@ -130,6 +136,12 @@ export default async function HomePage() {
           ))}
         </div>
       </HomeSection>
+
+      <FaqSection
+        placement="home"
+        showViewAllLink
+        className="bg-gray-50 border-y border-gray-100"
+      />
     </div>
   );
 }

@@ -10,6 +10,7 @@ import { ProjectMetaStrip } from '@/components/ProjectMetaStrip';
 import { ProjectQuote } from '@/components/ProjectQuote';
 import { ProjectSplitSection } from '@/components/ProjectSplitSection';
 import { ProjectTechPills } from '@/components/ProjectTechPills';
+import { FaqSection } from '@/components/FaqSection';
 import {
   getProjectBySlug,
   getRelatedProjects,
@@ -124,6 +125,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
         </HomeSection>
       )}
+
+      <FaqSection
+        placement="projects"
+        className="bg-gray-50 border-y border-gray-100"
+      />
 
       <div className="py-12">
         <div className="max-w-7xl mx-auto px-4">

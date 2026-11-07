@@ -1,17 +1,15 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { LegalPageShell, LegalSection } from '@/components/legal/LegalPageShell';
+import { buildStaticPageMetadata } from '@/features/page-seo/page-seo.service';
 import {
   getOperatorDisplayName,
   getPrivacyContactEmail,
   siteLegal,
 } from '@/lib/site-legal';
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy | Cairo Code Studio',
-  description:
-    'How Cairo Code Studio collects, uses, and protects personal data when you visit our website or contact us.',
-};
+export async function generateMetadata() {
+  return buildStaticPageMetadata('privacy-policy');
+}
 
 const LAST_UPDATED = '19 October 2026';
 

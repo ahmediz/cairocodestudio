@@ -1,17 +1,15 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { LegalPageShell, LegalSection } from '@/components/legal/LegalPageShell';
+import { buildStaticPageMetadata } from '@/features/page-seo/page-seo.service';
 import {
   getOperatorDisplayName,
   getPrivacyContactEmail,
   siteLegal,
 } from '@/lib/site-legal';
 
-export const metadata: Metadata = {
-  title: 'Terms and Conditions | Cairo Code Studio',
-  description:
-    'Terms for using the Cairo Code Studio website, including acceptable use, content, and limitations of liability.',
-};
+export async function generateMetadata() {
+  return buildStaticPageMetadata('terms-and-conditions');
+}
 
 const LAST_UPDATED = '19 October 2026';
 

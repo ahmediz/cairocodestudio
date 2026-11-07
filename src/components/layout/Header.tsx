@@ -25,6 +25,7 @@ export function Header({ socials }: HeaderProps) {
     { label: "Services", href: "/services" },
     { label: "Portfolio", href: "/projects" },
     { label: "Blog", href: "/blog" },
+    { label: "FAQ", href: "/faq" },
     { label: "Contact", href: "/contact" },
   ];
 

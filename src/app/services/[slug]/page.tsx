@@ -9,8 +9,11 @@ import { HomeSection } from '@/components/HomeSection';
 import { ServiceBenefitsCarousel } from '@/components/ServiceBenefitsCarousel';
 import { ServiceProcessTimeline } from '@/components/ServiceProcessTimeline';
 import { ServiceTalkButton } from '@/components/ServiceTalkButton';
+import { PortfolioCard } from '@/components/PortfolioCard';
 import { TestimonialCard } from '@/components/TestimonialCard';
+import { getRecentProjects } from '@/features/projects/projects.service';
 import { getServiceBySlug } from '@/features/services/services.service';
+import { FaqSection } from '@/components/FaqSection';
 import { getTestimonials } from '@/features/testimonials/testimonials.service';
 
 interface ServicePageProps {
@@ -50,9 +53,10 @@ function SectionImage({ src, alt }: { src: string; alt: string }) {
 
 export default async function ServicePage({ params }: ServicePageProps) {
   const { slug } = await params;
-  const [service, testimonials] = await Promise.all([
+  const [service, testimonials, recentProjects] = await Promise.all([
     getServiceBySlug(slug),
     getTestimonials(),
+    getRecentProjects(3),
   ]);
 
   if (!service || !service.isActive) {
@@ -180,6 +184,28 @@ export default async function ServicePage({ params }: ServicePageProps) {
         </HomeSection>
       )}
 
+      {recentProjects.length > 0 && (
+        <HomeSection
+          title="Our most recent delivered projects"
+          subtitle="Recent web and mobile work delivered with engineering excellence and thoughtful design."
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+            {recentProjects.map((project) => (
+              <PortfolioCard key={project.id} project={project} />
+            ))}
+          </div>
+          <Button
+            asChild
+            variant="customText"
+            className="text-gray-900 font-semibold gap-2 hover:text-primary transition-colors"
+          >
+            <Link href="/projects">
+              View all projects <ChevronRight className="h-4 w-4" />
+            </Link>
+          </Button>
+        </HomeSection>
+      )}
+
       {testimonials.length > 0 && (
         <HomeSection
           title="What clients say"
@@ -193,6 +219,8 @@ export default async function ServicePage({ params }: ServicePageProps) {
           </div>
         </HomeSection>
       )}
+
+      <FaqSection placement="services" />
 
       <div className="py-12">
         <div className="max-w-7xl mx-auto px-4">

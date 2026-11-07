@@ -1,14 +1,12 @@
 import React from 'react';
-import { Metadata } from 'next';
 import { BlogPostsInfinite } from '@/components/BlogPostsInfinite';
 import { QueryProvider } from '@/components/providers/QueryProvider';
 import { getBlogPostsPage } from '@/features/blog/blog.service';
+import { buildStaticPageMetadata } from '@/features/page-seo/page-seo.service';
 
-export const metadata: Metadata = {
-  title: 'Blog | Cairo Code Studio',
-  description:
-    'Insights, product engineering notes, and updates from Cairo Code Studio.',
-};
+export async function generateMetadata() {
+  return buildStaticPageMetadata('blog');
+}
 
 export const revalidate = 60;
 
